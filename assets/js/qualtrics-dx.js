@@ -7,7 +7,7 @@
 window.SQ_DX_CONFIG = {
   // Show the built-in "Was this page helpful?" fallback in #sq-page-feedback.
   // Set to false once your Qualtrics Embedded Feedback creative targets #sq-page-feedback.
-  nativeFeedbackFallback: true,
+  nativeFeedbackFallback: false,
 
   // If your deployment code includes <div id="ZN_xxxxxxxx"><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>,
   // put that ID here (e.g. "ZN_abc123XYZ") and this file will create the div for you.
