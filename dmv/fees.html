@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fees &amp; Fee Calculator | DMV | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "dmv", pageType: "service", pageName: "Fees & Fee Calculator" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .calc { background: var(--sq-blue-light); border-radius: 8px; padding: 24px; }
+    .calc__total { background: #fff; border-radius: 8px; padding: 20px; border: 2px solid var(--sq-green); }
+    .calc__total table { width: 100%; border-collapse: collapse; }
+    .calc__total td { padding: 4px 0; }
+    .calc__total td:last-child { text-align: right; font-weight: 600; }
+    .calc__total .total td { border-top: 1px solid var(--sq-gray-50); padding-top: 10px; font-size: 1.5rem; color: var(--sq-navy); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Fees &amp; fee calculator</h1>
+        <p class="sq-lead">Know what you'll pay before you go. We accept cards, checks, and cash at all service centers.</p>
+      </div>
+    </div>
+
+    <div class="sq-container">
+      <section class="sq-section" aria-labelledby="calc-title" style="padding-bottom:24px">
+        <h2 id="calc-title">Estimate your fees</h2>
+        <div class="calc sq-grid sq-grid--2" id="dmv-fee-calculator">
+          <div>
+            <div class="sq-field">
+              <label class="sq-label" for="fc-service">What do you need?</label>
+              <select class="sq-select" id="fc-service">
+                <option value="">- Select a service -</option>
+                <optgroup label="Licenses and IDs">
+                  <option value="license-new">New driver license (8 years)</option>
+                  <option value="license-renew">Driver license renewal (8 years)</option>
+                  <option value="duplicate">Duplicate or replacement license</option>
+                  <option value="permit">Learner permit</option>
+                  <option value="id">State ID card</option>
+                </optgroup>
+                <optgroup label="Vehicle registration (1 year)">
+                  <option value="reg-car">Car or light truck (under 12,000 lbs)</option>
+                  <option value="reg-heavy">Heavy truck (12,001–26,000 lbs)</option>
+                  <option value="reg-moto">Motorcycle</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="sq-field" id="fc-age-field" hidden>
+              <label class="sq-choice" for="fc-senior"><input type="checkbox" id="fc-senior"> <span>I'm 65 or older (reduced ID card fee)</span></label>
+            </div>
+            <div class="sq-field" id="fc-addons" hidden>
+              <span class="sq-label">Add-ons</span>
+              <label class="sq-choice" for="fc-expedite" data-fc-for="license-new license-renew duplicate id"><input type="checkbox" id="fc-expedite"> <span>Expedited mail (+$10)</span></label>
+              <label class="sq-choice" for="fc-retest" data-fc-for="license-new"><input type="checkbox" id="fc-retest"> <span>Road test retake (+$15)</span></label>
+              <label class="sq-choice" for="fc-late" data-fc-for="reg-car reg-heavy reg-moto"><input type="checkbox" id="fc-late"> <span>My registration is past due (+$10 late fee)</span></label>
+            </div>
+          </div>
+          <div class="calc__total" aria-live="polite">
+            <h3 style="margin-bottom:12px">Estimated total</h3>
+            <table id="fc-breakdown"><tr><td>Choose a service to see your estimate.</td><td></td></tr></table>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="table-title">
+        <h2 id="table-title">Fee schedule</h2>
+        <table class="sq-table">
+          <thead><tr><th scope="col">Service</th><th scope="col">Fee</th></tr></thead>
+          <tbody>
+            <tr><td>New driver license (8 years)</td><td>$39</td></tr>
+            <tr><td>Driver license renewal (8 years)</td><td>$32</td></tr>
+            <tr><td>Duplicate or replacement license</td><td>$18</td></tr>
+            <tr><td>Learner permit</td><td>$19</td></tr>
+            <tr><td>State ID card (age 65+: $13)</td><td>$23</td></tr>
+            <tr><td>Road test retake</td><td>$15</td></tr>
+            <tr><td>Registration: car or light truck</td><td>$46</td></tr>
+            <tr><td>Registration: heavy truck</td><td>$78</td></tr>
+            <tr><td>Registration: motorcycle</td><td>$34</td></tr>
+            <tr><td>Late registration fee</td><td>$10</td></tr>
+            <tr><td>Expedited mail</td><td>$10</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script>
+  (function () {
+    var FEES = {
+      "license-new": ["New driver license", 39], "license-renew": ["License renewal", 32], "duplicate": ["Duplicate license", 18],
+      "permit": ["Learner permit", 19], "id": ["State ID card", 23],
+      "reg-car": ["Registration: car or light truck", 46], "reg-heavy": ["Registration: heavy truck", 78], "reg-moto": ["Registration: motorcycle", 34]
+    };
+    var calc = document.getElementById("dmv-fee-calculator");
+    var svc = document.getElementById("fc-service");
+    var out = document.getElementById("fc-breakdown");
+    var used = false, timer;
+
+    function money(n) { return "$" + n.toFixed(2); }
+    function update() {
+      var s = svc.value;
+      document.getElementById("fc-age-field").hidden = s !== "id";
+      document.getElementById("fc-addons").hidden = !s;
+      [].forEach.call(document.querySelectorAll("[data-fc-for]"), function (l) {
+        var show = l.getAttribute("data-fc-for").split(" ").indexOf(s) !== -1;
+        l.hidden = !show; if (!show) l.querySelector("input").checked = false;
+      });
+      if (!s) { out.innerHTML = "<tr><td>Choose a service to see your estimate.</td><td></td></tr>"; return; }
+      var rows = [], base = FEES[s][1];
+      if (s === "id" && document.getElementById("fc-senior").checked) base = 13;
+      rows.push([FEES[s][0], base]);
+      if (document.getElementById("fc-expedite").checked) rows.push(["Expedited mail", 10]);
+      if (document.getElementById("fc-retest").checked) rows.push(["Road test retake", 15]);
+      if (document.getElementById("fc-late").checked) rows.push(["Late fee", 10]);
+      var total = rows.reduce(function (a, r) { return a + r[1]; }, 0);
+      out.innerHTML = rows.map(function (r) { return "<tr><td>" + r[0] + "</td><td>" + money(r[1]) + "</td></tr>"; }).join("") +
+        '<tr class="total"><td>Total</td><td id="fc-total">' + money(total) + "</td></tr>";
+
+      if (!used) { used = true; SQ.data.set("calculatorUsed", true); SQ.emit("sq:calculatorused", { service: s }); }
+      clearTimeout(timer);
+      timer = setTimeout(function () { SQ.data.merge({ calculatorService: s, calculatorTotal: total }, { refresh: true }); }, 800);
+    }
+    calc.addEventListener("change", update);
+    SQ.data.set("calculatorUsed", false);
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agency Directory | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="assets/img/seal.png">
+  <link rel="stylesheet" href="assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "portal", pageType: "directory", pageName: "Agency Directory" };
+  </script>
+  <script src="assets/js/sq-datalayer.js"></script>
+  <script src="assets/js/qualtrics-dx.js"></script>
+  <style>
+    .sq-dir-filter { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; margin: 32px 0 8px; }
+    .sq-dir-filter .sq-field { margin: 0; flex: 1; min-width: 260px; }
+    .sq-dir-count { color: var(--sq-gray-70); margin: 0 0 8px; }
+    .sq-table tr:target td { background: var(--sq-cream); }
+    .sq-table td:first-child { font-weight: 600; }
+    @media (max-width: 639px) {
+      .sq-table thead { display: none; }
+      .sq-table tr { display: block; border-bottom: 1px solid var(--sq-gray-10); padding: 8px 0; }
+      .sq-table td { display: block; border: 0; padding: 2px 0; }
+    }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Agency directory</h1>
+        <p class="sq-lead">Find the State of Qualtrics department, board, or office you need.</p>
+      </div>
+    </div>
+
+    <div class="sq-container">
+      <div class="sq-dir-filter">
+        <div class="sq-field">
+          <label class="sq-label" for="sq-dir-q">Filter agencies by name or service</label>
+          <input class="sq-input" id="sq-dir-q" type="search" placeholder="For example: taxes, parks, schools" autocomplete="off">
+        </div>
+      </div>
+      <p class="sq-dir-count" id="sq-dir-count" aria-live="polite"></p>
+
+      <section class="sq-section" style="padding-top:16px" aria-labelledby="featured-title">
+        <h2 id="featured-title">Online services agencies</h2>
+        <p>These agencies offer services you can complete online.</p>
+        <div class="sq-grid sq-grid--2" style="margin-top:16px">
+          <div class="sq-card" data-dir-item data-dir-text="department of motor vehicles dmv driver license id card vehicle registration road test car">
+            <span class="sq-tile__icon" data-sq-icon="car"></span>
+            <h3>Department of Motor Vehicles</h3>
+            <p>Driver licenses, ID cards, vehicle registration, and road tests.</p>
+            <p><strong>Phone:</strong> 1-555-368-4357</p>
+            <div class="sq-card__footer"><a class="sq-btn sq-btn--outline" href="dmv/index.html">Go to DMV</a></div>
+          </div>
+          <div class="sq-card" data-dir-item data-dir-text="department of revenue tax taxes income refund business sales">
+            <span class="sq-tile__icon" data-sq-icon="dollar"></span>
+            <h3>Department of Revenue</h3>
+            <p>Individual income tax, business taxes, refunds, and payments.</p>
+            <p><strong>Phone:</strong> 1-555-829-8000</p>
+            <div class="sq-card__footer"><a class="sq-btn sq-btn--outline" href="revenue/index.html">Go to Revenue</a></div>
+          </div>
+          <div class="sq-card" data-dir-item data-dir-text="department of health human services hhs snap food medicaid child care benefits family">
+            <span class="sq-tile__icon" data-sq-icon="heart"></span>
+            <h3>Department of Health &amp; Human Services</h3>
+            <p>SNAP food benefits, Medicaid, child care help, and family services.</p>
+            <p><strong>Phone:</strong> 1-555-447-4357</p>
+            <div class="sq-card__footer"><a class="sq-btn sq-btn--outline" href="hhs/index.html">Go to HHS</a></div>
+          </div>
+          <div class="sq-card" data-dir-item data-dir-text="department of labor workforce unemployment jobs training employment">
+            <span class="sq-tile__icon" data-sq-icon="briefcase"></span>
+            <h3>Department of Labor &amp; Workforce</h3>
+            <p>Unemployment insurance, job search, and workforce training.</p>
+            <p><strong>Phone:</strong> 1-555-562-7000</p>
+            <div class="sq-card__footer"><a class="sq-btn sq-btn--outline" href="labor/index.html">Go to Labor</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="all-title">
+        <h2 id="all-title">All other agencies (A–Z)</h2>
+        <table class="sq-table" id="sq-dir-table">
+          <thead><tr><th scope="col">Agency</th><th scope="col">What they do</th><th scope="col">Phone</th></tr></thead>
+          <tbody>
+            <tr id="agriculture" data-dir-item data-dir-text="department of agriculture food farms farming"><td>Department of Agriculture &amp; Food</td><td>Farm programs, food safety, and weights and measures.</td><td>1-555-538-7100</td></tr>
+            <tr id="corrections" data-dir-item data-dir-text="department of corrections prison inmate"><td>Department of Corrections</td><td>State correctional facilities and inmate search.</td><td>1-555-545-5500</td></tr>
+            <tr id="education" data-dir-item data-dir-text="state board of education school schools teachers k-12"><td>State Board of Education</td><td>Public school directory, report cards, and teacher licensing.</td><td>1-555-538-7500</td></tr>
+            <tr id="environment" data-dir-item data-dir-text="department of environmental quality air water quality permits"><td>Department of Environmental Quality</td><td>Air and water quality, permits, and recycling.</td><td>1-555-536-4400</td></tr>
+            <tr id="governor" data-dir-item data-dir-text="office of the governor governor"><td>Office of the Governor</td><td>The Governor's priorities, press releases, and appointments.</td><td>1-555-538-1000</td></tr>
+            <tr id="insurance" data-dir-item data-dir-text="department of insurance insurance complaints agents"><td>Department of Insurance</td><td>Insurance agent licensing and consumer complaints.</td><td>1-555-538-3800</td></tr>
+            <tr id="natural-resources" data-dir-item data-dir-text="department of natural resources wildlife fishing hunting"><td>Department of Natural Resources</td><td>Wildlife, forestry, water rights, and outdoor recreation.</td><td>1-555-538-7200</td></tr>
+            <tr id="parks" data-dir-item data-dir-text="department of parks recreation camping campground state parks trails">
+              <td><a id="agency-parks" href="search.html?q=parks" data-sq-friction="F5" data-fixed-href="search.html?q=parks">Department of Parks &amp; Recreation</a></td>
+              <td>State parks, campground reservations, and trail maps.</td><td>1-555-322-3770</td></tr>
+            <tr id="public-safety" data-dir-item data-dir-text="department of public safety police highway patrol emergency"><td>Department of Public Safety</td><td>Highway Patrol, emergency management, and background checks.</td><td>1-555-965-4461</td></tr>
+            <tr id="secretary" data-dir-item data-dir-text="lieutenant governor elections secretary of state"><td>Office of the Lieutenant Governor</td><td>Elections, notary commissions, and state records.</td><td>1-555-538-1041</td></tr>
+            <tr id="transportation" data-dir-item data-dir-text="department of transportation roads road conditions traffic construction snow"><td>Department of Transportation</td><td>Road conditions, construction, and traffic cameras.</td><td>1-555-965-4000</td></tr>
+            <tr id="veterans" data-dir-item data-dir-text="office of veterans affairs veterans military va benefits"><td>Office of Veterans Affairs</td><td>Veterans benefits, state veterans homes, and support.</td><td>1-555-326-2372</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="assets/js/sq-components.js"></script>
+  <script src="assets/js/sq-friction.js"></script>
+  <script>
+  (function () {
+    var input = document.getElementById("sq-dir-q");
+    var items = [].slice.call(document.querySelectorAll("[data-dir-item]"));
+    var count = document.getElementById("sq-dir-count");
+    var timer;
+    function apply(report) {
+      var q = input.value.trim().toLowerCase();
+      var n = 0;
+      items.forEach(function (el) {
+        var text = (el.getAttribute("data-dir-text") + " " + el.textContent).toLowerCase();
+        var show = !q || q.split(/\s+/).every(function (t) { return text.indexOf(t) !== -1; });
+        el.hidden = !show; if (show) n++;
+      });
+      // Hide a section entirely when none of its agencies match
+      [].forEach.call(document.querySelectorAll("main section"), function (sec) {
+        var any = [].some.call(sec.querySelectorAll("[data-dir-item]"), function (el) { return !el.hidden; });
+        sec.hidden = !any;
+      });
+      count.textContent = q ? n + " of " + items.length + " agencies match \"" + input.value.trim() + "\"" : "Showing all " + items.length + " agencies";
+      if (report) {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          SQ.data.merge({ directoryFilter: input.value.trim(), directoryResultsCount: n }, { refresh: true });
+        }, 600);
+      }
+    }
+    input.addEventListener("input", function () { apply(true); });
+    apply(false);
+  })();
+  </script>
+</body>
+</html>

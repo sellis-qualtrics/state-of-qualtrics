@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Renew Your Driver License | DMV | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "dmv", pageType: "form", pageName: "License Renewal", formName: "license-renewal" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .r-fee-box { background: var(--sq-blue-light); border-radius: 8px; padding: 16px 20px; margin-bottom: 24px; max-width: 30rem; }
+    .r-fee-box table { width: 100%; border-collapse: collapse; }
+    .r-fee-box td { padding: 4px 0; }
+    .r-fee-box td:last-child { text-align: right; font-weight: 600; }
+    .r-fee-box tr.total td { border-top: 1px solid var(--sq-gray-50); padding-top: 8px; font-size: 1.125rem; color: var(--sq-navy); font-weight: 700; }
+    .sq-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .sq-row .sq-field { flex: 0 1 auto; }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Renew your driver license</h1>
+        <p class="sq-lead">Renew online in about 10 minutes. Your new license will be mailed to you.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <form class="sq-form" data-form-name="license-renewal" data-cancel-href="index.html" data-submit-label="Pay $32 and renew" novalidate>
+
+          <!-- Step 1: Eligibility -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Eligibility">
+            <legend>Can you renew online?</legend>
+
+            <fieldset class="sq-field sq-fieldset" style="margin-bottom:24px">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">When does your license expire? <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="r-exp-soon"><input type="radio" id="r-exp-soon" name="expiration" value="soon" required data-error="Select when your license expires"> <span>In the next 6 months</span></label>
+              <label class="sq-choice sq-choice--tile" for="r-exp-recent"><input type="radio" id="r-exp-recent" name="expiration" value="recent"> <span>It expired less than 1 year ago</span></label>
+              <label class="sq-choice sq-choice--tile" for="r-exp-old"><input type="radio" id="r-exp-old" name="expiration" value="old"> <span>It expired more than 1 year ago</span></label>
+              <label class="sq-choice sq-choice--tile" for="r-exp-notyet"><input type="radio" id="r-exp-notyet" name="expiration" value="notyet"> <span>More than 6 months from now</span></label>
+            </fieldset>
+
+            <fieldset class="sq-field sq-fieldset" style="margin-bottom:24px">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Has your mailing address changed since your last license? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="r-addr-no"><input type="radio" id="r-addr-no" name="addressChanged" value="no" required data-error="Tell us if your address changed"> <span>No</span></label>
+              <label class="sq-choice" for="r-addr-yes"><input type="radio" id="r-addr-yes" name="addressChanged" value="yes"> <span>Yes</span></label>
+            </fieldset>
+
+            <fieldset class="sq-field sq-fieldset" style="margin-bottom:24px">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Have you had a vision or medical change that could affect your driving? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="r-med-no"><input type="radio" id="r-med-no" name="medicalChange" value="no" required data-error="Answer the vision or medical question"> <span>No</span></label>
+              <label class="sq-choice" for="r-med-yes"><input type="radio" id="r-med-yes" name="medicalChange" value="yes"> <span>Yes</span></label>
+            </fieldset>
+
+            <!-- Stop panels block Continue while visible -->
+            <div class="sq-alert sq-alert--warning" data-sq-show-if="expiration=old" data-sq-stop="renewal-ineligible" hidden>
+              <p class="sq-alert__heading">You'll need to renew in person</p>
+              <p>Licenses that expired more than 1 year ago can't be renewed online. You may need to retake the knowledge test. <a href="appointments.html">Book an appointment</a>.</p>
+            </div>
+            <div class="sq-alert sq-alert--warning" data-sq-show-if="expiration=notyet" data-sq-stop="renewal-ineligible" hidden>
+              <p class="sq-alert__heading">It's too early to renew</p>
+              <p>You can renew online starting 6 months before your license expires. We'll send you a reminder by mail.</p>
+            </div>
+            <div class="sq-alert sq-alert--warning" data-sq-show-if="medicalChange=yes" data-sq-stop="renewal-ineligible" hidden>
+              <p class="sq-alert__heading">A vision screening is required</p>
+              <p>Because of a vision or medical change, you'll need to renew in person. <a href="appointments.html">Book an appointment</a>.</p>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: Your information -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Your information">
+            <legend>Your information</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="r-license">Driver license number <span class="sq-required">*</span></label>
+              <span class="sq-hint" data-f3-hint="r-license">1 letter followed by 8 numbers, like D12345678. It's in the top right of your license.</span>
+              <input class="sq-input sq-input--md" id="r-license" name="licenseNumber" required pattern="[A-Za-z][0-9]{8}" maxlength="9" autocomplete="off"
+                     data-sq-friction="F3" data-error="Enter 1 letter followed by 8 numbers, like D12345678">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="r-dob">Date of birth <span class="sq-required">*</span></label>
+              <input class="sq-input sq-input--md" id="r-dob" name="dob" type="date" required data-required-error="Enter your date of birth">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="r-ssn">Last 4 digits of your Social Security number <span class="sq-required">*</span></label>
+              <span class="sq-hint">Demo site: enter any 4 numbers.</span>
+              <input class="sq-input sq-input--sm" id="r-ssn" name="ssnLast4" data-sq-mask required pattern="[0-9]{4}" maxlength="4" inputmode="numeric" autocomplete="off" data-error="Enter exactly 4 numbers">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="r-email">Email address <span class="sq-required">*</span></label>
+              <span class="sq-hint">We'll send your confirmation here.</span>
+              <input class="sq-input" id="r-email" name="email" type="email" required autocomplete="email" data-error="Enter an email address like name@example.com">
+            </div>
+          </fieldset>
+
+          <!-- Step 3: Address & delivery -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Address &amp; delivery">
+            <legend>Address &amp; delivery</legend>
+            <div class="sq-alert sq-alert--info" data-sq-show-if="addressChanged=no">
+              <p>We'll mail your new license to the address we have on file.</p>
+            </div>
+            <div data-sq-show-if="addressChanged=yes" hidden>
+              <div class="sq-field">
+                <label class="sq-label" for="r-street">Street address <span class="sq-required">*</span></label>
+                <input class="sq-input" id="r-street" name="street" required autocomplete="address-line1">
+              </div>
+              <div class="sq-row">
+                <div class="sq-field">
+                  <label class="sq-label" for="r-city">City <span class="sq-required">*</span></label>
+                  <input class="sq-input sq-input--md" id="r-city" name="city" required autocomplete="address-level2">
+                </div>
+                <div class="sq-field">
+                  <label class="sq-label" for="r-zip">ZIP code <span class="sq-required">*</span></label>
+                  <input class="sq-input sq-input--sm" id="r-zip" name="zip" required pattern="[0-9]{5}" maxlength="5" inputmode="numeric" autocomplete="postal-code" data-error="Enter a 5-digit ZIP code">
+                </div>
+              </div>
+            </div>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">How should we mail your license? <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="r-del-std"><input type="radio" id="r-del-std" name="delivery" value="standard" required data-error="Choose a delivery method"> <span><strong>Standard mail</strong>, free<br><span class="sq-hint" style="margin:0">Arrives in 7–10 business days</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="r-del-exp"><input type="radio" id="r-del-exp" name="delivery" value="expedited"> <span><strong>Expedited</strong>, $10<br><span class="sq-hint" style="margin:0">Arrives in 3–5 business days</span></span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 4: Payment -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Payment">
+            <legend>Payment</legend>
+            <div class="r-fee-box" aria-live="polite">
+              <table>
+                <tr><td>License renewal (8 years)</td><td>$32.00</td></tr>
+                <tr id="r-fee-exp-row" hidden><td>Expedited delivery</td><td>$10.00</td></tr>
+                <tr class="total"><td>Total</td><td id="r-fee-total">$32.00</td></tr>
+              </table>
+            </div>
+            <div class="sq-alert sq-alert--info"><p><strong>Demo site:</strong> don't enter a real card. Any 16 numbers will work.</p></div>
+            <div class="sq-field">
+              <label class="sq-label" for="r-cardname">Name on card <span class="sq-required">*</span></label>
+              <input class="sq-input" id="r-cardname" name="cardName" required autocomplete="off">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="r-card">Card number <span class="sq-required">*</span></label>
+              <input class="sq-input sq-input--md" id="r-card" name="cardNumber" data-sq-mask required pattern="[0-9 ]{16,19}" maxlength="19" inputmode="numeric" autocomplete="off" data-error="Enter a 16-digit card number">
+            </div>
+            <div class="sq-row">
+              <div class="sq-field">
+                <label class="sq-label" for="r-exp">Expiration (MM/YY) <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--sm" id="r-exp" name="cardExp" required pattern="(0[1-9]|1[0-2])/[0-9]{2}" maxlength="5" placeholder="MM/YY" autocomplete="off" data-error="Use the format MM/YY, like 04/28">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="r-cvv">Security code <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--sm" id="r-cvv" name="cardCvv" type="password" required pattern="[0-9]{3,4}" maxlength="4" inputmode="numeric" autocomplete="off" data-error="Enter the 3- or 4-digit code">
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 5: Review -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Review">
+            <legend>Review and pay</legend>
+            <p>Check your information. You can go back to make changes.</p>
+            <div data-sq-review></div>
+          </fieldset>
+
+          <div data-sq-confirmation hidden>
+            <div class="sq-confirm">
+              <h2>Your license renewal is complete</h2>
+              <p>Confirmation number</p>
+              <p><span class="sq-confirm__number" data-sq-confirmation-number></span></p>
+              <p>Your new license will arrive in <strong id="r-conf-days">7–10 business days</strong>. Until then, you can drive with your current license and this confirmation.</p>
+              <p>We sent a receipt to your email.</p>
+              <div class="sq-btn-group">
+                <a class="sq-btn" href="index.html">Back to DMV home</a>
+                <a class="sq-btn sq-btn--outline" href="appointments.html">Book another service</a>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <aside class="sq-sidebar" aria-label="What you'll need">
+        <div class="sq-card sq-card--blue">
+          <h3>What you'll need</h3>
+          <ul style="padding-left:20px;margin:0">
+            <li>Your current driver license</li>
+            <li>The last 4 digits of your Social Security number</li>
+            <li>A credit or debit card for the $32 fee</li>
+          </ul>
+          <p style="margin-top:12px">Need help? Call <strong>1-555-368-4357</strong>.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script src="../assets/js/sq-forms.js"></script>
+  <script>
+    // Fee total + delivery method (data layer: deliveryMethod)
+    (function () {
+      var form = document.querySelector('form[data-form-name="license-renewal"]');
+      var engine = SQ.forms.filter(function (f) { return f.form === form; })[0];
+      form.addEventListener("change", function (e) {
+        if (e.target.name !== "delivery") return;
+        var exp = e.target.value === "expedited";
+        var total = exp ? 42 : 32;
+        document.getElementById("r-fee-exp-row").hidden = !exp;
+        document.getElementById("r-fee-total").textContent = "$" + total + ".00";
+        document.getElementById("r-conf-days").textContent = exp ? "3–5 business days" : "7–10 business days";
+        form.setAttribute("data-submit-label", "Pay $" + total + " and renew");
+        if (engine) engine.updateLabel();
+        SQ.data.merge({ deliveryMethod: e.target.value, feeTotal: total });
+      });
+    })();
+  </script>
+</body>
+</html>

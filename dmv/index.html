@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Department of Motor Vehicles | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "dmv", pageType: "landing", pageName: "DMV Home" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .dmv-map { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--sq-gray-10); background: var(--sq-blue-light); aspect-ratio: 16 / 10; }
+    .dmv-map svg { width: 100%; height: 100%; display: block; }
+    .dmv-map__cta { position: absolute; right: 12px; bottom: 12px; background: #fff; color: var(--sq-green); font-weight: 700; padding: 8px 14px; border-radius: 4px; box-shadow: var(--sq-shadow); text-decoration: underline; }
+    .dmv-offices td:first-child { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Department of Motor Vehicles</h1>
+        <p class="sq-lead">Driver licenses, ID cards, vehicle registration, and road tests. Skip the trip: most services are online.</p>
+        <div class="sq-btn-group" style="margin-top:16px">
+          <a class="sq-btn" href="license-renewal.html">Renew a driver license</a>
+          <a class="sq-btn sq-btn--outline" href="appointments.html">Book an appointment</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="sq-section" aria-labelledby="tasks-title">
+      <div class="sq-container">
+        <h2 id="tasks-title">Top DMV services</h2>
+        <div class="sq-grid sq-grid--4" style="margin-top:24px">
+          <a class="sq-tile" href="license-renewal.html">
+            <span class="sq-tile__icon" data-sq-icon="id"></span>
+            <span class="sq-tile__title">Renew a license</span>
+            <span class="sq-tile__desc">About 10 minutes online. $32 fee.</span>
+          </a>
+          <a class="sq-tile" href="appointments.html">
+            <span class="sq-tile__icon" data-sq-icon="calendar"></span>
+            <span class="sq-tile__title">Book an appointment</span>
+            <span class="sq-tile__desc">Road tests, first-time licenses, and in-person services.</span>
+          </a>
+          <a class="sq-tile" href="fees.html">
+            <span class="sq-tile__icon" data-sq-icon="dollar"></span>
+            <span class="sq-tile__title">Fees &amp; calculator</span>
+            <span class="sq-tile__desc">See what you'll pay before you go.</span>
+          </a>
+          <a class="sq-tile" href="#registration">
+            <span class="sq-tile__icon" data-sq-icon="car"></span>
+            <span class="sq-tile__title">Register a vehicle</span>
+            <span class="sq-tile__desc">New, used, and renewal registrations.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sq-section sq-section--blue" id="registration" aria-labelledby="reg-title">
+      <div class="sq-container sq-grid sq-grid--2">
+        <div>
+          <h2 id="reg-title">Vehicle registration</h2>
+          <p>Register your vehicle within 30 days of buying it or moving to the State of Qualtrics. Renew your registration every year by the last day of the month on your sticker.</p>
+          <h3>What you'll need</h3>
+          <ul>
+            <li>The vehicle title or a bill of sale</li>
+            <li>Proof of State of Qualtrics auto insurance</li>
+            <li>A safety and emissions inspection (for vehicles more than 4 years old)</li>
+            <li>Payment for <a href="fees.html">registration fees</a></li>
+          </ul>
+        </div>
+        <div class="sq-card">
+          <h3>Renewing your registration?</h3>
+          <p>You'll get a reminder by mail 45 days before it expires. Online renewal for registrations is coming in 2027. For now, renew at any service center.</p>
+          <div class="sq-card__footer"><a class="sq-btn sq-btn--outline" href="appointments.html">Book a visit</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sq-section" id="offices" aria-labelledby="offices-title">
+      <div class="sq-container sq-layout" style="padding-top:0">
+        <div>
+          <h2 id="offices-title">Service centers</h2>
+          <p>Walk-ins are welcome, but appointments are served first.</p>
+          <table class="sq-table dmv-offices">
+            <thead><tr><th scope="col">Service center</th><th scope="col">Address</th><th scope="col">Hours</th></tr></thead>
+            <tbody>
+              <tr><td>Capitol City Central</td><td>210 State Street, Capitol City</td><td>Mon–Fri 8–5, Sat 9–1</td></tr>
+              <tr><td>Provo Falls</td><td>48 Canyon Road, Provo Falls</td><td>Mon–Fri 8–5</td></tr>
+              <tr><td>Lehi Junction</td><td>1500 Tech Parkway, Lehi Junction</td><td>Mon–Fri 8–6</td></tr>
+              <tr><td>Ridgeview <span class="sq-tag sq-tag--new">Weather notice</span></td><td>77 Summit Avenue, Ridgeview</td><td>Mon–Thu 8–5, <strong>closed Fridays this month</strong></td></tr>
+              <tr><td>Cedar Hollow</td><td>9 Main Street, Cedar Hollow</td><td>Tue–Fri 9–4</td></tr>
+              <tr><td>Lakeside</td><td>320 Shoreline Drive, Lakeside</td><td>Mon–Fri 8–5</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <!-- F1: dead click. Looks like an interactive map, but does nothing while friction is ON -->
+          <div class="dmv-map" id="dmv-map" data-sq-friction="F1" data-href="#offices" role="img" aria-label="Map of DMV service centers">
+            <svg viewBox="0 0 320 200" aria-hidden="true">
+              <rect width="320" height="200" fill="#eef8fe"/>
+              <path d="M0 140 C 60 120, 120 170, 200 140 S 300 110, 320 130 L320 200 L0 200Z" fill="#c7e1d5"/>
+              <path d="M20 30 L300 170 M40 180 L280 20 M160 0 L160 200" stroke="#ffffff" stroke-width="6"/>
+              <path d="M20 30 L300 170 M40 180 L280 20 M160 0 L160 200" stroke="#e6e6e6" stroke-width="2"/>
+              <g fill="#3e7d60">
+                <circle cx="160" cy="98" r="7"/><circle cx="92" cy="60" r="6"/><circle cx="230" cy="64" r="6"/>
+                <circle cx="252" cy="150" r="6"/><circle cx="70" cy="150" r="6"/><circle cx="196" cy="118" r="6"/>
+              </g>
+              <circle cx="160" cy="98" r="12" fill="none" stroke="#1c2d5c" stroke-width="2"/>
+            </svg>
+            <span class="dmv-map__cta">View interactive map</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sq-section sq-section--blue" aria-labelledby="faq-title">
+      <div class="sq-container">
+        <h2 id="faq-title">Frequently asked questions</h2>
+        <div class="sq-accordion" style="max-width:800px;margin-top:16px">
+          <details>
+            <summary>Can I renew my license online?</summary>
+            <div><p>Yes, if your license expires within the next 6 months or expired less than 1 year ago, and you haven't had a vision or medical change. <a href="license-renewal.html">Start your renewal</a>.</p></div>
+          </details>
+          <details>
+            <summary>How long does it take to get my new license?</summary>
+            <div><p>Standard mail takes 7–10 business days. Expedited delivery ($10) takes 3–5 business days. You can keep driving with your confirmation email until it arrives.</p></div>
+          </details>
+          <details>
+            <summary>What do I need for a road test?</summary>
+            <div><p>Bring your learner permit, a registered and insured vehicle, and a licensed driver age 21 or older. <a href="appointments.html">Book a road test</a>.</p></div>
+          </details>
+          <details id="handbook">
+            <summary>Where can I get the driver handbook?</summary>
+            <div>
+              <p>The 2026 State of Qualtrics Driver Handbook covers traffic laws, road signs, and safe driving. Printed copies are free at every service center.</p>
+              <!-- F5: broken link. Goes to 404 while friction is ON -->
+              <p><a id="dmv-handbook-link" href="#handbook" data-sq-friction="F5" data-fixed-href="#handbook">Download the Driver Handbook (PDF, 4.2 MB)</a></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="sq-container">
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+</body>
+</html>

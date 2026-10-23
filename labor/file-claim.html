@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>File an Unemployment Claim | Labor | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "labor", pageType: "form", pageName: "File an Unemployment Claim", formName: "unemployment-claim" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>.sq-row { display: flex; gap: 16px; flex-wrap: wrap; }</style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>File an unemployment claim</h1>
+        <p class="sq-lead">Apply for unemployment insurance if you lost your job or your hours were cut. About 25 minutes.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <!-- F7: session timeout while friction is ON -->
+        <form class="sq-form" data-form-name="unemployment-claim" data-cancel-href="index.html" data-submit-label="Submit claim" data-confirmation-prefix="SQ-UI"
+              data-sq-friction="F7" data-idle="60" data-grace="30" novalidate>
+
+          <!-- Step 1: Eligibility -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Eligibility">
+            <legend>About your job loss</legend>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Why did your most recent job end? <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="uc-r-laid"><input type="radio" id="uc-r-laid" name="separationReason" value="laid-off" required data-error="Choose why your job ended"> <span><strong>Laid off or lack of work</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="uc-r-hours"><input type="radio" id="uc-r-hours" name="separationReason" value="hours-reduced"> <span><strong>My hours were cut</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="uc-r-fired"><input type="radio" id="uc-r-fired" name="separationReason" value="fired"> <span><strong>Fired or discharged</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="uc-r-quit"><input type="radio" id="uc-r-quit" name="separationReason" value="quit"> <span><strong>I quit</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="uc-r-working"><input type="radio" id="uc-r-working" name="separationReason" value="still-working"> <span><strong>I'm still working full time</strong></span></label>
+            </fieldset>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Have you worked in the State of Qualtrics in the last 18 months? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="uc-st-yes"><input type="radio" id="uc-st-yes" name="workedInState" value="yes" required data-error="Answer the work history question"> <span>Yes</span></label>
+              <label class="sq-choice" for="uc-st-no"><input type="radio" id="uc-st-no" name="workedInState" value="no"> <span>No</span></label>
+            </fieldset>
+
+            <div class="sq-alert sq-alert--info" data-sq-show-if="separationReason=quit|fired" hidden>
+              <p class="sq-alert__heading">Your claim will need a review</p>
+              <p>Because your job ended this way, a claims specialist will review your situation. You can still file today. We'll ask you to explain what happened.</p>
+            </div>
+            <div class="sq-alert sq-alert--warning" data-sq-show-if="separationReason=still-working" data-sq-stop="unemployment-ineligible" hidden>
+              <p class="sq-alert__heading">You can't file while working full time</p>
+              <p>Unemployment benefits are for people who lost their job or had their hours cut. If your hours are reduced later, you can file then.</p>
+            </div>
+            <div class="sq-alert sq-alert--warning" data-sq-show-if="workedInState=no" data-sq-stop="unemployment-ineligible" hidden>
+              <p class="sq-alert__heading">File in the state where you worked</p>
+              <p>You need to file with the state where you worked in the last 18 months. Call 1-555-562-7000 if you worked in more than one state.</p>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: About you -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="About you">
+            <legend>About you</legend>
+            <div class="sq-row">
+              <div class="sq-field">
+                <label class="sq-label" for="uc-first">First name <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="uc-first" name="firstName" required autocomplete="given-name">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="uc-last">Last name <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="uc-last" name="lastName" required autocomplete="family-name">
+              </div>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="uc-dob">Date of birth <span class="sq-required">*</span></label>
+              <input class="sq-input sq-input--md" id="uc-dob" name="dob" type="date" required data-required-error="Enter your date of birth">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="uc-ssn">Last 4 digits of your Social Security number <span class="sq-required">*</span></label>
+              <span class="sq-hint">Demo site: enter any 4 numbers.</span>
+              <input class="sq-input sq-input--sm" id="uc-ssn" name="ssnLast4" required pattern="[0-9]{4}" maxlength="4" inputmode="numeric" autocomplete="off" data-sq-mask data-error="Enter exactly 4 numbers">
+            </div>
+            <div class="sq-row">
+              <div class="sq-field">
+                <label class="sq-label" for="uc-phone">Phone <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="uc-phone" name="phone" type="tel" required pattern="[0-9]{3}-?[0-9]{3}-?[0-9]{4}" autocomplete="tel" data-error="Enter a 10-digit phone number, like 555-555-0100">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="uc-email">Email <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="uc-email" name="email" type="email" required autocomplete="email" data-error="Enter an email address like name@example.com">
+              </div>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="uc-zip">Home ZIP code <span class="sq-required">*</span></label>
+              <input class="sq-input sq-input--sm" id="uc-zip" name="zip" required pattern="[0-9]{5}" maxlength="5" inputmode="numeric" autocomplete="postal-code" data-error="Enter a 5-digit ZIP code">
+            </div>
+          </fieldset>
+
+          <!-- Step 3: Work history -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Work history">
+            <legend>Your most recent employer</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="uc-emp">Employer name <span class="sq-required">*</span></label>
+              <input class="sq-input" id="uc-emp" name="employer" required>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="uc-emp-phone">Employer phone <span class="sq-required">*</span></label>
+              <span class="sq-hint" data-f3-hint="uc-emp-phone">Include dashes, like 555-555-0100</span>
+              <input class="sq-input sq-input--md" id="uc-emp-phone" name="employerPhone" type="tel" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12"
+                     data-sq-friction="F3" data-error="Include dashes, like 555-555-0100">
+            </div>
+            <div class="sq-row">
+              <div class="sq-field">
+                <label class="sq-label" for="uc-start">Start date <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="uc-start" name="startDate" type="date" required data-required-error="Enter your start date">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="uc-end">Last day worked <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="uc-end" name="lastDay" type="date" required data-required-error="Enter your last day worked">
+              </div>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="uc-wages">Total wages in the last 12 months, before taxes (USD) <span class="sq-required">*</span></label>
+              <span class="sq-hint">An estimate is fine. We'll confirm with your employer.</span>
+              <input class="sq-input sq-input--md" id="uc-wages" name="wages" type="number" min="0" step="1" required inputmode="numeric" data-error="Enter a number, like 48000">
+            </div>
+            <div class="sq-field" data-sq-show-if="separationReason=quit|fired" hidden>
+              <label class="sq-label" for="uc-explain">Tell us what happened <span class="sq-required">*</span></label>
+              <span class="sq-hint">At least 30 characters.</span>
+              <textarea class="sq-textarea" id="uc-explain" name="explanation" required minlength="30" data-error="Write at least 30 characters"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Step 4: Payment -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Payment">
+            <legend>How do you want to get paid?</legend>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Payment method <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="uc-pay-dd"><input type="radio" id="uc-pay-dd" name="paymentMethod" value="direct-deposit" required data-error="Choose a payment method"> <span><strong>Direct deposit</strong><br><span class="sq-hint" style="margin:0">Fastest: 2 days after you certify</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="uc-pay-card"><input type="radio" id="uc-pay-card" name="paymentMethod" value="debit-card"> <span><strong>State of Qualtrics debit card</strong><br><span class="sq-hint" style="margin:0">Mailed in 7–10 days</span></span></label>
+            </fieldset>
+            <div data-sq-show-if="paymentMethod=direct-deposit" hidden>
+              <div class="sq-field">
+                <label class="sq-label" for="uc-routing">Routing number <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="uc-routing" name="routing" required pattern="[0-9]{9}" maxlength="9" inputmode="numeric" autocomplete="off" data-error="Enter a 9-digit routing number">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="uc-acct">Account number <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="uc-acct" name="account" required pattern="[0-9]{4,17}" maxlength="17" inputmode="numeric" autocomplete="off" data-sq-mask data-error="Enter 4 to 17 numbers">
+              </div>
+            </div>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Withhold 10% for federal income tax? <span class="sq-required">*</span></legend>
+              <span class="sq-hint">Unemployment benefits are taxable income.</span>
+              <label class="sq-choice" for="uc-tax-yes"><input type="radio" id="uc-tax-yes" name="withholding" value="yes" required data-error="Answer the tax withholding question"> <span>Yes</span></label>
+              <label class="sq-choice" for="uc-tax-no"><input type="radio" id="uc-tax-no" name="withholding" value="no"> <span>No</span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 5: Review & certify -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Review &amp; certify">
+            <legend>Review and certify</legend>
+            <div data-sq-review></div>
+            <div class="sq-field">
+              <label class="sq-choice" for="uc-certify"><input type="checkbox" id="uc-certify" name="certify" required data-required-error="You must certify to submit"> <span>I certify that the information in this claim is true. I understand that making false statements to get benefits is a crime.</span></label>
+            </div>
+          </fieldset>
+
+          <div data-sq-confirmation hidden>
+            <div class="sq-confirm">
+              <h2>Your claim was submitted</h2>
+              <p>Claim number</p>
+              <p><span class="sq-confirm__number" data-sq-confirmation-number></span></p>
+              <p>Estimated weekly benefit: <strong id="uc-conf-wba"></strong></p>
+              <h3>What happens next</h3>
+              <ol>
+                <li>Your first week is an unpaid waiting week.</li>
+                <li>Submit your first <a href="weekly-certification.html">weekly certification</a> starting <strong id="uc-conf-date"></strong>.</li>
+                <li id="uc-conf-review">You'll get a decision letter within 21 days.</li>
+              </ol>
+              <a class="sq-btn" href="index.html">Back to Labor home</a>
+            </div>
+          </div>
+        </form>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <aside class="sq-sidebar" aria-label="What you'll need">
+        <div class="sq-card sq-card--blue">
+          <h3>Have this ready</h3>
+          <ul style="padding-left:20px;margin:0">
+            <li>Your employer's name and phone number</li>
+            <li>Your start date and last day worked</li>
+            <li>Your bank routing and account numbers</li>
+          </ul>
+          <p style="margin-top:12px;font-size:.9375rem">For your security, this form signs you out after a few minutes without activity.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script src="../assets/js/sq-forms.js"></script>
+  <script>
+  (function () {
+    var form = document.querySelector('form[data-form-name="unemployment-claim"]');
+    function wba() {
+      var w = parseFloat(document.getElementById("uc-wages").value) || 0;
+      return Math.min(712, Math.round(w / 52 * 0.55));
+    }
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "separationReason") SQ.data.set("separationReason", e.target.value);
+      if (e.target.name === "paymentMethod") SQ.data.set("paymentMethod", e.target.value);
+      if (e.target.name === "wages") SQ.data.set("estimatedWeeklyBenefit", wba());
+    });
+    window.addEventListener("sq:formsubmit", function () {
+      var amount = wba();
+      document.getElementById("uc-conf-wba").textContent = "$" + amount + " per week";
+      // First certification: the Sunday after next
+      var d = new Date(); d.setDate(d.getDate() + (7 - d.getDay()) + 7);
+      document.getElementById("uc-conf-date").textContent = d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+      var r = (form.querySelector('input[name="separationReason"]:checked') || {}).value;
+      if (r === "quit" || r === "fired") document.getElementById("uc-conf-review").textContent = "A claims specialist will call you within 10 business days to review how your job ended.";
+      SQ.data.set("estimatedWeeklyBenefit", amount);
+    });
+  })();
+  </script>
+</body>
+</html>

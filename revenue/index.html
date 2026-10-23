@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Department of Revenue | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = {
+      agency: "revenue", pageType: "landing", pageName: "Revenue Home",
+      notice: "<strong>2026 filing deadline:</strong> April 15, 2027. Extension deadline: October 15, 2027."
+    };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .rev-estimator { display: flex; gap: 20px; align-items: center; background: var(--sq-navy); color: #fff; border-radius: 8px; padding: 24px; }
+    .rev-estimator h3 { color: #fff; margin: 0 0 4px; }
+    .rev-estimator p { margin: 0; color: #dfe6f3; }
+    .rev-estimator__icon { width: 72px; height: 72px; border-radius: 12px; background: var(--sq-green); display: grid; place-items: center; flex: none; font-size: 2rem; font-weight: 700; }
+    .rev-estimator__go { margin-left: auto; background: #fff; color: var(--sq-navy); font-weight: 700; padding: 12px 18px; border-radius: 4px; white-space: nowrap; }
+    @media (max-width: 639px) { .rev-estimator { flex-wrap: wrap; } .rev-estimator__go { margin-left: 0; } }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Department of Revenue</h1>
+        <p class="sq-lead">Individual income tax, business taxes, refunds, and payments.</p>
+        <div class="sq-btn-group" style="margin-top:16px">
+          <a class="sq-btn" href="refund-status.html">Check my refund</a>
+          <a class="sq-btn sq-btn--outline" href="file-pay.html">Make a payment</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="sq-section" aria-labelledby="tasks-title">
+      <div class="sq-container">
+        <h2 id="tasks-title">Top Revenue services</h2>
+        <div class="sq-grid sq-grid--4" style="margin-top:24px">
+          <a class="sq-tile" href="refund-status.html">
+            <span class="sq-tile__icon" data-sq-icon="search"></span>
+            <span class="sq-tile__title">Where's my refund?</span>
+            <span class="sq-tile__desc">Track your state income tax refund.</span>
+          </a>
+          <a class="sq-tile" href="file-pay.html">
+            <span class="sq-tile__icon" data-sq-icon="dollar"></span>
+            <span class="sq-tile__title">Make a payment</span>
+            <span class="sq-tile__desc">Pay a balance, estimated tax, or an extension.</span>
+          </a>
+          <a class="sq-tile" href="business-registration.html">
+            <span class="sq-tile__icon" data-sq-icon="building"></span>
+            <span class="sq-tile__title">Register a business</span>
+            <span class="sq-tile__desc">Get your state tax accounts in one application.</span>
+          </a>
+          <a class="sq-tile" href="#forms">
+            <span class="sq-tile__icon" data-sq-icon="doc"></span>
+            <span class="sq-tile__title">Tax forms</span>
+            <span class="sq-tile__desc">Download forms and instructions.</span>
+          </a>
+        </div>
+
+        <!-- F1: dead click. Promo looks clickable but does nothing while friction is ON -->
+        <div class="rev-estimator" id="rev-estimator" data-sq-friction="F1" data-href="refund-status.html" style="margin-top:32px">
+          <div class="rev-estimator__icon" aria-hidden="true">$</div>
+          <div>
+            <h3>New: Refund estimator</h3>
+            <p>See how much you could get back before you file.</p>
+          </div>
+          <span class="rev-estimator__go">Try the estimator →</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="sq-section sq-section--blue" aria-labelledby="dates-title">
+      <div class="sq-container">
+        <h2 id="dates-title">Key dates for tax year 2026</h2>
+        <table class="sq-table" style="max-width:760px;background:#fff">
+          <thead><tr><th scope="col">Date</th><th scope="col">What's due</th></tr></thead>
+          <tbody>
+            <tr><td>January 15, 2027</td><td>4th-quarter 2026 estimated payment</td></tr>
+            <tr><td>January 31, 2027</td><td>Employers send W-2s and file withholding reconciliation</td></tr>
+            <tr><td>April 15, 2027</td><td>2026 individual income tax returns and payments</td></tr>
+            <tr><td>October 15, 2027</td><td>Extended 2026 returns</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sq-section" id="forms" aria-labelledby="forms-title">
+      <div class="sq-container">
+        <h2 id="forms-title">Tax forms &amp; publications</h2>
+        <ul>
+          <!-- F5: broken link. Goes to 404 while friction is ON -->
+          <li><a id="rev-booklet-link" href="#forms" data-sq-friction="F5" data-fixed-href="#forms">2026 Individual Income Tax Booklet (TC-40, PDF)</a></li>
+          <li>TC-40 Individual Income Tax Return <span class="sq-tag">Available January 2027</span></li>
+          <li>TC-559 Payment Coupon <span class="sq-tag">Available now at service centers</span></li>
+          <li>TC-69 Business Registration (paper version) <span class="sq-tag">Use the <a href="business-registration.html">online registration</a> instead</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sq-section sq-section--blue" aria-labelledby="faq-title">
+      <div class="sq-container">
+        <h2 id="faq-title">Frequently asked questions</h2>
+        <div class="sq-accordion" style="max-width:800px;margin-top:16px">
+          <details>
+            <summary>How long does it take to get my refund?</summary>
+            <div><p>Most e-filed returns are processed within 14 days. Paper returns can take 8–10 weeks. Some returns are held for identity verification. <a href="refund-status.html">Check your status</a>.</p></div>
+          </details>
+          <details>
+            <summary>I got a letter asking me to verify my identity. What do I do?</summary>
+            <div><p>Letter TAX-ID-1 means we need to confirm you filed the return. Follow the instructions in the letter within 30 days. Your refund will be released after we verify your identity.</p></div>
+          </details>
+          <details>
+            <summary>Is there a fee to pay by card?</summary>
+            <div><p>Yes. Our card processor charges a 2.5% convenience fee. Bank account (ACH) payments are free.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="sq-container">
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+</body>
+</html>

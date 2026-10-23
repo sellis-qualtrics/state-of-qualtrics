@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>State of Qualtrics | Official State Portal</title>
+  <meta name="description" content="Official demo portal of the State of Qualtrics. Renew your license, check your tax refund, apply for benefits, and more.">
+  <link rel="icon" type="image/png" href="assets/img/seal.png">
+  <link rel="stylesheet" href="assets/css/sq.css">
+  <script>
+    window.sqPage = {
+      agency: "portal",
+      pageType: "home",
+      pageName: "Home",
+      notice: "<strong>Winter weather advisory:</strong> Some DMV offices in Ridgeview will close at 2 p.m. on Friday. <a href=\"dmv/appointments.html\">Check office hours and appointments</a>."
+    };
+  </script>
+  <script src="assets/js/sq-datalayer.js"></script>
+  <script src="assets/js/qualtrics-dx.js"></script>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+
+    <!-- Hero -->
+    <section class="sq-hero" aria-labelledby="hero-title">
+      <div class="sq-container">
+        <div class="sq-hero__inner">
+          <h1 id="hero-title">How can we help you today?</h1>
+          <p class="sq-lead">Find state services, forms, and information, all in one place.</p>
+          <form class="sq-search" role="search" action="search.html" method="get" id="sq-hero-search">
+            <label for="hero-q" class="sq-visually-hidden">Search state services</label>
+            <input id="hero-q" name="q" type="search" placeholder="Try &quot;renew license&quot; or &quot;tax refund&quot;">
+            <button type="submit">Search</button>
+          </form>
+          <p style="margin-top:16px;color:#dfe6f3;font-size:.9375rem">
+            Popular: <a class="sq-hero__pop" href="search.html?q=renew+license" style="color:#fff">renew license</a> ·
+            <a href="search.html?q=refund" style="color:#fff">refund status</a> ·
+            <a href="search.html?q=snap" style="color:#fff">SNAP benefits</a> ·
+            <a href="search.html?q=unemployment" style="color:#fff">unemployment</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- F6: late layout shift. Pops in after 1.5s and pushes content down. -->
+    <div class="sq-notice" data-sq-friction="F6" id="sq-promo-banner" style="border-top:1px solid #e3e3b0">
+      <div class="sq-container">
+        <span class="sq-tag sq-tag--new">New</span>
+        <div><strong>Skip the line:</strong> most driver licenses can now be renewed online in about 10 minutes. <a href="dmv/license-renewal.html">Start your renewal</a></div>
+      </div>
+    </div>
+
+    <!-- Popular services -->
+    <section class="sq-section" aria-labelledby="popular-title">
+      <div class="sq-container">
+        <h2 id="popular-title">Popular services</h2>
+        <p class="sq-lead">The online services residents use most.</p>
+        <div class="sq-grid sq-grid--4" style="margin-top:24px">
+          <a class="sq-tile" href="dmv/license-renewal.html">
+            <span class="sq-tile__icon" data-sq-icon="id"></span>
+            <span class="sq-tile__agency">Motor Vehicles</span>
+            <span class="sq-tile__title">Renew a driver license</span>
+            <span class="sq-tile__desc">Renew online if your license expires within 6 months.</span>
+          </a>
+          <a class="sq-tile" href="dmv/appointments.html">
+            <span class="sq-tile__icon" data-sq-icon="calendar"></span>
+            <span class="sq-tile__agency">Motor Vehicles</span>
+            <span class="sq-tile__title">Book a DMV appointment</span>
+            <span class="sq-tile__desc">Reserve a time at any of our 12 service centers.</span>
+          </a>
+          <a class="sq-tile" href="revenue/refund-status.html">
+            <span class="sq-tile__icon" data-sq-icon="search"></span>
+            <span class="sq-tile__agency">Revenue</span>
+            <span class="sq-tile__title">Where's my refund?</span>
+            <span class="sq-tile__desc">Check the status of your state income tax refund.</span>
+          </a>
+          <a class="sq-tile" href="revenue/file-pay.html">
+            <span class="sq-tile__icon" data-sq-icon="dollar"></span>
+            <span class="sq-tile__agency">Revenue</span>
+            <span class="sq-tile__title">File &amp; pay taxes</span>
+            <span class="sq-tile__desc">File your return or make a payment online.</span>
+          </a>
+          <a class="sq-tile" href="hhs/eligibility.html">
+            <span class="sq-tile__icon" data-sq-icon="check"></span>
+            <span class="sq-tile__agency">Health &amp; Human Services</span>
+            <span class="sq-tile__title">Check benefits eligibility</span>
+            <span class="sq-tile__desc">See if you may qualify for SNAP, Medicaid, and more.</span>
+          </a>
+          <a class="sq-tile" href="hhs/apply.html">
+            <span class="sq-tile__icon" data-sq-icon="heart"></span>
+            <span class="sq-tile__agency">Health &amp; Human Services</span>
+            <span class="sq-tile__title">Apply for benefits</span>
+            <span class="sq-tile__desc">Start one application for food, health, and cash help.</span>
+          </a>
+          <a class="sq-tile" href="labor/file-claim.html">
+            <span class="sq-tile__icon" data-sq-icon="briefcase"></span>
+            <span class="sq-tile__agency">Labor</span>
+            <span class="sq-tile__title">File for unemployment</span>
+            <span class="sq-tile__desc">Lost your job? Start your unemployment claim.</span>
+          </a>
+          <a class="sq-tile" href="labor/weekly-certification.html">
+            <span class="sq-tile__icon" data-sq-icon="doc"></span>
+            <span class="sq-tile__agency">Labor</span>
+            <span class="sq-tile__title">Weekly certification</span>
+            <span class="sq-tile__desc">Request your weekly benefit payment.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Life events. F1: dead clicks (look clickable, do nothing while friction is ON) -->
+    <section class="sq-section sq-section--blue" aria-labelledby="life-title">
+      <div class="sq-container">
+        <h2 id="life-title">Services for life events</h2>
+        <p class="sq-lead">Big changes often mean working with more than one agency. Start here.</p>
+        <div class="sq-grid sq-grid--4" style="margin-top:24px">
+          <div class="sq-card sq-card--green" data-sq-friction="F1" id="life-moving" data-href="dmv/index.html">
+            <span class="sq-tile__icon" data-sq-icon="building"></span>
+            <h3>Moving to Qualtrics</h3>
+            <p>Transfer your license, register your vehicle, and register to vote.</p>
+          </div>
+          <div class="sq-card sq-card--green" data-sq-friction="F1" id="life-job" data-href="labor/index.html">
+            <span class="sq-tile__icon" data-sq-icon="briefcase"></span>
+            <h3>Losing a job</h3>
+            <p>Unemployment benefits, health coverage, and job search help.</p>
+          </div>
+          <div class="sq-card sq-card--green" data-sq-friction="F1" id="life-baby" data-href="hhs/index.html">
+            <span class="sq-tile__icon" data-sq-icon="heart"></span>
+            <h3>Having a baby</h3>
+            <p>Health coverage, nutrition programs, and birth certificates.</p>
+          </div>
+          <div class="sq-card sq-card--green" data-sq-friction="F1" id="life-business" data-href="revenue/business-registration.html">
+            <span class="sq-tile__icon" data-sq-icon="dollar"></span>
+            <h3>Starting a business</h3>
+            <p>Register your business, get a tax ID, and find licenses.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Agencies -->
+    <section class="sq-section" aria-labelledby="agencies-title">
+      <div class="sq-container">
+        <h2 id="agencies-title">Browse by agency</h2>
+        <div class="sq-grid sq-grid--2" style="margin-top:24px">
+          <div class="sq-card">
+            <h3>Department of Motor Vehicles</h3>
+            <p>Driver licenses, ID cards, vehicle registration, and road tests.</p>
+            <div class="sq-card__footer"><a href="dmv/index.html">Visit the DMV →</a></div>
+          </div>
+          <div class="sq-card">
+            <h3>Department of Revenue</h3>
+            <p>Individual income tax, business taxes, refunds, and payments.</p>
+            <div class="sq-card__footer"><a href="revenue/index.html">Visit Revenue →</a></div>
+          </div>
+          <div class="sq-card">
+            <h3>Department of Health &amp; Human Services</h3>
+            <p>SNAP food benefits, Medicaid, child care help, and family services.</p>
+            <div class="sq-card__footer"><a href="hhs/index.html">Visit HHS →</a></div>
+          </div>
+          <div class="sq-card">
+            <h3>Department of Labor &amp; Workforce</h3>
+            <p>Unemployment insurance, job search, and workforce training.</p>
+            <div class="sq-card__footer"><a href="labor/index.html">Visit Labor →</a></div>
+          </div>
+        </div>
+        <p style="margin-top:24px"><a class="sq-btn sq-btn--outline" href="agencies.html">See all agencies</a></p>
+      </div>
+    </section>
+
+    <!-- News -->
+    <section class="sq-section sq-section--blue" aria-labelledby="news-title">
+      <div class="sq-container">
+        <h2 id="news-title">News &amp; updates</h2>
+        <div class="sq-grid sq-grid--3" style="margin-top:24px">
+          <article class="sq-card">
+            <span class="sq-tag">Revenue</span>
+            <h3>2026 tax refunds are arriving faster</h3>
+            <p>Most e-filed returns are now processed within 14 days. Check your refund status online.</p>
+            <div class="sq-card__footer"><a href="revenue/refund-status.html">Check your refund</a></div>
+          </article>
+          <article class="sq-card">
+            <span class="sq-tag">Labor</span>
+            <h3>Job fair at the Capitol City Convention Center</h3>
+            <p>More than 80 employers are hiring on November 12. Admission is free for job seekers.</p>
+            <div class="sq-card__footer"><a href="labor/jobs.html">Find jobs</a></div>
+          </article>
+          <article class="sq-card">
+            <span class="sq-tag">Health &amp; Human Services</span>
+            <h3>Open enrollment begins November 1</h3>
+            <p>Review your health coverage options and update your household information.</p>
+            <div class="sq-card__footer"><a href="hhs/index.html">Learn more</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="sq-container">
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="assets/js/sq-components.js"></script>
+  <script src="assets/js/sq-friction.js"></script>
+</body>
+</html>

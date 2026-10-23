@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Health &amp; Human Services | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = {
+      agency: "hhs", pageType: "landing", pageName: "HHS Home",
+      notice: "<strong>Open enrollment</strong> for 2027 health coverage begins November 1. <a href=\"eligibility.html\">See if you qualify for Medicaid</a>."
+    };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .hhs-lang { display: inline-flex; align-items: center; gap: 6px; color: var(--sq-green); text-decoration: underline; font-weight: 600; margin-left: 8px; }
+    .hhs-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: hs; list-style: none; padding: 0; margin: 24px 0 0; }
+    .hhs-steps li { background: #fff; border-radius: 8px; padding: 24px; border: 1px solid var(--sq-gray-10); max-width: none; counter-increment: hs; }
+    .hhs-steps li::before { content: counter(hs); display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--sq-green); color: #fff; font-weight: 700; font-size: 1.25rem; margin-bottom: 12px; }
+    .hhs-steps h3 { font-size: 1.25rem; }
+    @media (max-width: 639px) { .hhs-steps { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Health &amp; Human Services</h1>
+        <p class="sq-lead">Help with food, health coverage, child care, and energy bills for State of Qualtrics families.</p>
+        <div class="sq-btn-group" style="margin-top:16px">
+          <a class="sq-btn" href="eligibility.html">Check if you qualify</a>
+          <a class="sq-btn sq-btn--outline" href="apply.html">Apply now</a>
+          <!-- F1: dead click. Looks like a language link but does nothing while friction is ON -->
+          <span class="hhs-lang" id="hhs-lang" data-sq-friction="F1" data-href="#languages" lang="es">🌐 Español</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="sq-section" aria-labelledby="programs-title">
+      <div class="sq-container">
+        <h2 id="programs-title">Programs</h2>
+        <div class="sq-grid sq-grid--3" style="margin-top:24px">
+          <div class="sq-card">
+            <span class="sq-tag">Food</span>
+            <h3>SNAP food benefits</h3>
+            <p>Monthly money on an EBT card to buy groceries.</p>
+          </div>
+          <div class="sq-card">
+            <span class="sq-tag">Health</span>
+            <h3>Medicaid</h3>
+            <p>Free or low-cost health coverage for adults, children, pregnant people, and seniors.</p>
+          </div>
+          <div class="sq-card">
+            <span class="sq-tag">Food</span>
+            <h3>WIC</h3>
+            <p>Healthy food and nutrition support for pregnant people and children under 5.</p>
+          </div>
+          <div class="sq-card">
+            <span class="sq-tag">Cash</span>
+            <h3>Cash assistance (TANF)</h3>
+            <p>Short-term cash help and job support for families with children.</p>
+          </div>
+          <div class="sq-card">
+            <span class="sq-tag">Family</span>
+            <h3>Child care assistance</h3>
+            <p>Help paying for child care while you work or go to school.</p>
+          </div>
+          <div class="sq-card">
+            <span class="sq-tag">Home</span>
+            <h3>Energy assistance (LIHEAP)</h3>
+            <p>Help paying heating and cooling bills, plus emergency shutoff help.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sq-section sq-section--blue" aria-labelledby="how-title">
+      <div class="sq-container">
+        <h2 id="how-title">How to apply</h2>
+        <ol class="hhs-steps">
+          <li><h3>Check if you qualify</h3><p>Answer a few questions to see which programs may fit your household. About 5 minutes.</p><a href="eligibility.html">Start the screener</a></li>
+          <li><h3>Apply online</h3><p>One application covers SNAP, Medicaid, cash assistance, and child care help. About 20 minutes.</p><a href="apply.html">Start an application</a></li>
+          <li><h3>Complete your interview</h3><p>A caseworker will call you within 10 business days. Most decisions are made within 30 days.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="sq-section" id="resources" aria-labelledby="resources-title">
+      <div class="sq-container sq-grid sq-grid--2">
+        <div>
+          <h2 id="resources-title">Resources</h2>
+          <ul>
+            <!-- F5: broken link. Goes to 404 while friction is ON -->
+            <li><a id="hhs-provider-link" href="#resources" data-sq-friction="F5" data-fixed-href="#resources">Find a Medicaid provider</a></li>
+            <li>Check your EBT card balance: call 1-555-328-2255</li>
+            <li>Report a change (income, address, household): call 1-555-447-4357</li>
+            <li>Need help right now? Dial <strong>211</strong> for local food, housing, and crisis resources</li>
+          </ul>
+        </div>
+        <div id="languages">
+          <h2>Language help</h2>
+          <p>Free interpreters are available in more than 200 languages. Call 1-555-447-4357 and say the language you need.</p>
+          <p lang="es">Ayuda en español: llame al 1-555-447-4357.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sq-section sq-section--blue" aria-labelledby="faq-title">
+      <div class="sq-container">
+        <h2 id="faq-title">Frequently asked questions</h2>
+        <div class="sq-accordion" style="max-width:800px;margin-top:16px">
+          <details>
+            <summary>Can I apply for more than one program at once?</summary>
+            <div><p>Yes. One online application covers SNAP, Medicaid, cash assistance, and child care assistance.</p></div>
+          </details>
+          <details>
+            <summary>What documents will I need?</summary>
+            <div><p>Proof of identity, proof of income for the last 30 days (pay stubs or an employer letter), and proof of address. You can upload them, mail them, or bring them to an office.</p></div>
+          </details>
+          <details>
+            <summary>How long does it take to get a decision?</summary>
+            <div><p>Most applications are decided within 30 days. If you have very little income, you may get SNAP within 7 days.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="sq-container">
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+</body>
+</html>

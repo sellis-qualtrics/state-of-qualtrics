@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Us | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="assets/img/seal.png">
+  <link rel="stylesheet" href="assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "portal", pageType: "contact", pageName: "Contact Us", formName: "contact-us" };
+  </script>
+  <script src="assets/js/sq-datalayer.js"></script>
+  <script src="assets/js/qualtrics-dx.js"></script>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Contact us</h1>
+        <p class="sq-lead">Get help by phone, chat, or by sending us a question.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <!-- Self-service first -->
+        <div class="sq-alert sq-alert--info">
+          <p class="sq-alert__heading">Before you contact us</p>
+          <p>Many questions can be answered online in a few minutes:</p>
+          <ul>
+            <li><a href="revenue/refund-status.html">Check the status of your tax refund</a></li>
+            <li><a href="dmv/appointments.html">Schedule or change a DMV appointment</a></li>
+            <li><a href="hhs/eligibility.html">See if you may qualify for benefits</a></li>
+            <li><a href="labor/weekly-certification.html">Submit your weekly unemployment certification</a></li>
+          </ul>
+        </div>
+
+        <h2>Call an agency</h2>
+        <table class="sq-table">
+          <thead><tr><th scope="col">Agency</th><th scope="col">Phone</th><th scope="col">Hours</th></tr></thead>
+          <tbody>
+            <tr><td>Department of Motor Vehicles</td><td>1-555-368-4357</td><td>Mon–Fri, 8 a.m.–5 p.m.</td></tr>
+            <tr><td>Department of Revenue</td><td>1-555-829-8000</td><td>Mon–Fri, 8 a.m.–6 p.m.</td></tr>
+            <tr><td>Health &amp; Human Services</td><td>1-555-447-4357</td><td>Mon–Fri, 7 a.m.–7 p.m.</td></tr>
+            <tr><td>Labor &amp; Workforce</td><td>1-555-562-7000</td><td>Mon–Fri, 8 a.m.–5 p.m.</td></tr>
+            <tr><td>General state information</td><td>1-555-777-8283</td><td>Mon–Fri, 8 a.m.–5 p.m.</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="contact-form-title" style="margin-top:48px">Send us a question</h2>
+        <p>We respond to most questions within 2 business days.</p>
+
+        <form class="sq-form" data-form-name="contact-us" data-cancel-href="index.html" data-submit-label="Send question" novalidate aria-labelledby="contact-form-title">
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Your question">
+            <legend>Your question</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="c-topic">Topic <span class="sq-required">*</span></label>
+              <select class="sq-select" id="c-topic" name="topic" required data-required-error="Select a topic">
+                <option value="">- Select -</option>
+                <option>A question about a service</option>
+                <option>A problem with the website</option>
+                <option>Status of an application</option>
+                <option>A complaint</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="c-agency">Which agency is this about?</label>
+              <select class="sq-select" id="c-agency" name="agency">
+                <option value="">I'm not sure</option>
+                <option>Department of Motor Vehicles</option>
+                <option>Department of Revenue</option>
+                <option>Health &amp; Human Services</option>
+                <option>Labor &amp; Workforce</option>
+                <option>Another agency</option>
+              </select>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="c-msg">Your message <span class="sq-required">*</span></label>
+              <span class="sq-hint">At least 20 characters. Don't include Social Security or bank account numbers.</span>
+              <textarea class="sq-textarea" id="c-msg" name="message" required minlength="20" data-error="Your message must be at least 20 characters"></textarea>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="c-name">Full name <span class="sq-required">*</span></label>
+              <input class="sq-input" id="c-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="c-email">Email address <span class="sq-required">*</span></label>
+              <input class="sq-input" id="c-email" name="email" type="email" autocomplete="email" required data-error="Enter an email address like name@example.com">
+            </div>
+          </fieldset>
+
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Review &amp; send">
+            <legend>Review &amp; send</legend>
+            <p>Check your information before you send it.</p>
+            <div data-sq-review></div>
+          </fieldset>
+
+          <div data-sq-confirmation hidden>
+            <div class="sq-confirm">
+              <h2>Your question was sent</h2>
+              <p>Your reference number is</p>
+              <p><span class="sq-confirm__number" data-sq-confirmation-number></span></p>
+              <p>We'll reply by email within 2 business days. Keep this number in case you need to follow up.</p>
+              <p><a class="sq-btn" href="index.html">Return to home</a></p>
+            </div>
+          </div>
+        </form>
+
+        <!-- Accessibility & privacy (footer anchors) -->
+        <section id="accessibility" style="margin-top:64px" aria-labelledby="a11y-title">
+          <h2 id="a11y-title">Accessibility</h2>
+          <p>The State of Qualtrics wants everyone to be able to use our websites. We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA.</p>
+          <p>If you have trouble using any part of this site, call 1-555-777-8283 (TTY: 711) or use the form above and choose "A problem with the website."</p>
+        </section>
+
+        <section id="privacy" style="margin-top:48px" aria-labelledby="privacy-title">
+          <h2 id="privacy-title">Privacy policy</h2>
+          <p><strong>This is a demo site.</strong> No information you enter is stored or sent to any government agency.</p>
+          <p>This site uses Qualtrics to collect feedback and to understand how visitors use the site, so we can improve it. Feedback you choose to share may be stored by Qualtrics on behalf of the site owner.</p>
+        </section>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <!-- Sidebar: live chat (F2) -->
+      <aside class="sq-sidebar" aria-label="Live chat">
+        <div class="sq-card sq-card--blue">
+          <span class="sq-tile__icon" data-sq-icon="phone"></span>
+          <h3>Chat with us</h3>
+          <p>Live chat is available Mon–Fri, 8 a.m.–5 p.m.</p>
+          <div class="sq-card__footer">
+            <a href="#" class="sq-btn" id="sq-chat-btn" data-sq-friction="F2" data-delay="4000" data-target="#sq-chat-busy">Start a chat</a>
+          </div>
+          <div id="sq-chat-busy" class="sq-alert sq-alert--warning" hidden style="margin:16px 0 0">
+            <p class="sq-alert__heading">All agents are busy</p>
+            <p>Wait times are longer than usual. Try again later, call us, or <a href="#contact-form-title">send us a question</a>.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="assets/js/sq-components.js"></script>
+  <script src="assets/js/sq-friction.js"></script>
+  <script src="assets/js/sq-forms.js"></script>
+  <script>
+    // Q7: count chat attempts (including rage clicks) and flag when "busy" is shown
+    (function () {
+      var attempts = 0;
+      window.addEventListener("sq:friction", function (e) {
+        if (e.detail && e.detail.id === "sq-chat-btn") { attempts++; SQ.data.set("chatAttempts", attempts, { refresh: attempts >= 3 }); }
+      });
+      window.addEventListener("sq:frictionresolved", function (e) {
+        if (e.detail && e.detail.id === "sq-chat-btn") SQ.data.set("chatUnavailableShown", true, { refresh: true });
+      });
+      SQ.data.set("chatAttempts", 0);
+      SQ.data.set("chatUnavailableShown", false);
+    })();
+  </script>
+</body>
+</html>

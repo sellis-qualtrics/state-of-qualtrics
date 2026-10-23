@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where's My Refund? | Revenue | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "revenue", pageType: "service", pageName: "Where's My Refund?" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .rf-track { list-style: none; display: flex; padding: 0; margin: 24px 0; }
+    .rf-track li { flex: 1; text-align: center; position: relative; font-size: .9375rem; color: var(--sq-gray-50); max-width: none; }
+    .rf-track li::before { content: ""; display: block; width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 8px; background: var(--sq-gray-10); border: 3px solid #fff; box-shadow: 0 0 0 2px var(--sq-gray-10); position: relative; z-index: 1; }
+    .rf-track li::after { content: ""; position: absolute; top: 13px; left: -50%; width: 100%; height: 4px; background: var(--sq-gray-10); }
+    .rf-track li:first-child::after { display: none; }
+    .rf-track li.done { color: var(--sq-navy); font-weight: 600; }
+    .rf-track li.done::before { background: var(--sq-green); box-shadow: 0 0 0 2px var(--sq-green); }
+    .rf-track li.done::after { background: var(--sq-green); }
+    .rf-track li.current { color: var(--sq-navy); font-weight: 700; }
+    .rf-track li.current::before { background: #fff; box-shadow: 0 0 0 3px var(--sq-green); }
+    .rf-track li.current::after { background: var(--sq-green); }
+    .rf-track li.alert::before { background: var(--sq-warning); box-shadow: 0 0 0 3px var(--sq-warning); }
+    #refund-result { margin-top: 32px; }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Where's my refund?</h1>
+        <p class="sq-lead">Check the status of your State of Qualtrics individual income tax refund. Status updates once a day, overnight.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <form id="refund-form" class="sq-form" novalidate onsubmit="return false">
+          <div id="rf-summary"></div>
+          <div class="sq-field">
+            <label class="sq-label" for="rf-ssn">Last 4 digits of your Social Security number <span class="sq-required">*</span></label>
+            <span class="sq-hint">Demo site: enter any 4 numbers.</span>
+            <input class="sq-input sq-input--sm" id="rf-ssn" inputmode="numeric" maxlength="4" autocomplete="off">
+          </div>
+          <div class="sq-field">
+            <label class="sq-label" for="rf-year">Tax year <span class="sq-required">*</span></label>
+            <select class="sq-select sq-input--md" id="rf-year">
+              <option value="">- Select -</option>
+              <option value="2025">2025 (filed in 2026)</option>
+              <option value="2024">2024 (filed in 2025)</option>
+              <option value="2023">2023 (filed in 2024)</option>
+            </select>
+          </div>
+          <div class="sq-field">
+            <label class="sq-label" for="rf-amount">Expected refund amount <span class="sq-required">*</span></label>
+            <span class="sq-hint" id="rf-amount-hint">Whole dollars only, from line 38 of your TC-40. For example: 1250</span>
+            <input class="sq-input sq-input--md" id="rf-amount" inputmode="decimal" autocomplete="off" data-sq-friction-f3="true">
+          </div>
+          <div class="sq-form__actions">
+            <!-- F2: slow response with no feedback while friction is ON -->
+            <button type="button" class="sq-btn" id="refund-check" data-sq-friction="F2" data-delay="3000" data-target="#refund-result">Check status</button>
+            <a class="sq-btn sq-btn--link" href="index.html" data-sq-exit>Back to Revenue</a>
+          </div>
+        </form>
+
+        <section id="refund-result" hidden aria-live="polite"></section>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <aside class="sq-sidebar" aria-label="Refund help">
+        <div class="sq-card sq-card--blue">
+          <h3>When will I get my refund?</h3>
+          <ul style="padding-left:20px;margin:8px 0 0;font-size:.9375rem">
+            <li>E-filed returns: about 14 days</li>
+            <li>Paper returns: 8–10 weeks</li>
+            <li>Direct deposit arrives 3–5 days after approval</li>
+          </ul>
+          <p style="margin-top:12px;font-size:.9375rem">Questions? Call <strong>1-555-829-8000</strong>.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script>
+  // Registered BEFORE sq-friction.js so invalid input stops the F2 handler from running
+  (function () {
+    var frictionOn = window.sqDataLayer.frictionMode === "on";
+    var btn = document.getElementById("refund-check");
+    var ssn = document.getElementById("rf-ssn"), year = document.getElementById("rf-year"), amt = document.getElementById("rf-amount");
+    var hint = document.getElementById("rf-amount-hint");
+    var summary = document.getElementById("rf-summary");
+    var result = document.getElementById("refund-result");
+    var attempts = 0;
+
+    if (frictionOn) hint.hidden = true; // F3: the format rule is not stated
+
+    function clear() {
+      summary.innerHTML = "";
+      [].forEach.call(document.querySelectorAll("#refund-form .has-error"), function (f) { f.classList.remove("has-error"); });
+      [].forEach.call(document.querySelectorAll("#refund-form .sq-error-msg"), function (m) { m.remove(); });
+    }
+    function err(el, msg) {
+      var f = el.closest(".sq-field"); f.classList.add("has-error");
+      var m = document.createElement("span"); m.className = "sq-error-msg"; m.id = el.id + "-error"; m.textContent = msg;
+      f.insertBefore(m, f.querySelector(".sq-label").nextSibling);
+      el.setAttribute("aria-describedby", m.id);
+      return { el: el, msg: msg };
+    }
+    function parseAmount(v) {
+      v = v.trim();
+      if (frictionOn) return /^[0-9]+$/.test(v) ? parseInt(v, 10) : null;
+      v = v.replace(/[$,\s]/g, "").replace(/\.00$/, "");
+      return /^[0-9]+$/.test(v) ? parseInt(v, 10) : null;
+    }
+    function validate() {
+      clear();
+      var errors = [];
+      if (!/^[0-9]{4}$/.test(ssn.value.trim())) errors.push(err(ssn, "Enter exactly 4 numbers"));
+      if (!year.value) errors.push(err(year, "Select a tax year"));
+      if (!amt.value.trim()) errors.push(err(amt, "Enter your expected refund amount"));
+      else if (parseAmount(amt.value) === null) {
+        errors.push(err(amt, frictionOn ? "Invalid entry" : "Enter whole dollars, like 1250"));
+        SQ.emit("sq:friction", { code: "F3", id: "rf-amount" });
+      }
+      if (errors.length) {
+        summary.innerHTML = '<div class="sq-alert sq-alert--error" role="alert" tabindex="-1"><p class="sq-alert__heading">Check your information</p><ul>' +
+          errors.map(function (e) { return '<li><a href="#' + e.el.id + '">' + document.querySelector('label[for="' + e.el.id + '"]').textContent.replace("*", "").trim() + ": " + e.msg + "</a></li>"; }).join("") + "</ul></div>";
+        summary.firstChild.focus();
+        result.hidden = true;
+        SQ.data.set("errorCount", (window.sqDataLayer.errorCount || 0) + errors.length, { refresh: true });
+        return false;
+      }
+      return true;
+    }
+    btn.addEventListener("click", function (e) {
+      if (!validate()) { e.stopImmediatePropagation(); e.preventDefault(); }
+      else result.hidden = true;
+    });
+
+    var STEPS = ["Return received", "Processing", "Approved", "Refund sent"];
+    function track(current, alert) {
+      return '<ol class="rf-track" aria-label="Refund progress">' + STEPS.map(function (s, i) {
+        var cls = i < current ? "done" : i === current ? (alert ? "current alert" : "current") : "";
+        return '<li class="' + cls + '">' + s + "</li>";
+      }).join("") + "</ol>";
+    }
+
+    window.addEventListener("sq:frictionresolved", function (e) {
+      if (!e.detail || e.detail.id !== "refund-check") return;
+      attempts++;
+      var a = parseAmount(amt.value), last = a % 10, y = year.value, html, outcome;
+      var money = "$" + a.toLocaleString("en-US");
+      if (y === "2023" || ssn.value.trim() === "0000") {
+        outcome = "not-found";
+        html = '<div class="sq-alert sq-alert--error"><p class="sq-alert__heading">We can\'t find a return that matches</p>' +
+          "<p>Check that the Social Security number, tax year, and refund amount match your return exactly. If you filed in the last 3 days, your return may not be in our system yet.</p></div>";
+      } else if (last === 0) {
+        outcome = "approved";
+        html = '<div class="sq-alert sq-alert--success"><p class="sq-alert__heading">Your refund was approved</p>' +
+          "<p>We sent your refund of <strong>" + money + "</strong> by direct deposit. Allow 3–5 business days for it to appear in your account.</p></div>" + track(3);
+      } else if (last === 5) {
+        outcome = "action-needed";
+        html = '<div class="sq-alert sq-alert--warning"><p class="sq-alert__heading">Action needed: verify your identity</p>' +
+          "<p>We mailed you letter <strong>TAX-ID-1</strong>. To protect you from identity theft, we need to confirm you filed this return before we release your refund of <strong>" + money + "</strong>.</p>" +
+          "<p>Follow the instructions in the letter within 30 days, or call 1-555-829-8000.</p></div>" + track(1, true);
+      } else {
+        outcome = "processing";
+        html = '<div class="sq-alert sq-alert--info"><p class="sq-alert__heading">Your return is being processed</p>' +
+          "<p>We received your " + y + " return and are reviewing it. Most refunds are approved within 14 days of filing. Check back tomorrow for an update.</p></div>" + track(1);
+      }
+      result.innerHTML = "<h2>Refund status: " + y + "</h2>" + html;
+      result.hidden = false;
+      SQ.data.merge({ refundLookupAttempts: attempts, refundLookupResult: outcome, refundTaxYear: y }, { refresh: true });
+      SQ.emit("sq:refundlookup", { result: outcome, attempts: attempts });
+    });
+
+    SQ.data.merge({ refundLookupAttempts: 0, refundLookupResult: "", refundTaxYear: "" });
+  })();
+  </script>
+  <script src="../assets/js/sq-friction.js"></script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book a DMV Appointment | DMV | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "dmv", pageType: "form", pageName: "Book an Appointment", formName: "dmv-appointment" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .a-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; max-width: 520px; }
+    .a-slot { position: relative; }
+    .a-slot input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+    .a-slot span { display: block; text-align: center; padding: 10px 6px; border: 1px solid var(--sq-green); border-radius: 4px; color: var(--sq-green-dark); font-weight: 600; background: #fff; }
+    .a-slot input:checked + span { background: var(--sq-green); color: #fff; }
+    .a-slot input:focus-visible + span { outline: 3px solid var(--sq-green); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Book a DMV appointment</h1>
+        <p class="sq-lead">Reserve a time at any service center. Appointments are served before walk-ins.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <form class="sq-form" data-form-name="dmv-appointment" data-cancel-href="index.html" data-submit-label="Book appointment" novalidate>
+
+          <!-- Step 1: Service -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Service">
+            <legend>What do you need to do?</legend>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Choose a service <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="a-svc-road"><input type="radio" id="a-svc-road" name="service" value="Road test" required data-error="Choose a service"> <span><strong>Road test</strong><br><span class="sq-hint" style="margin:0">About 45 minutes</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="a-svc-first"><input type="radio" id="a-svc-first" name="service" value="First-time license or REAL ID"> <span><strong>First-time license or REAL ID</strong><br><span class="sq-hint" style="margin:0">Bring proof of identity and residency</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="a-svc-name"><input type="radio" id="a-svc-name" name="service" value="Name change"> <span><strong>Name change</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="a-svc-transfer"><input type="radio" id="a-svc-transfer" name="service" value="Out-of-state license transfer"> <span><strong>Out-of-state license transfer</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="a-svc-other"><input type="radio" id="a-svc-other" name="service" value="Something else"> <span><strong>Something else</strong></span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 2: Location & time -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Location &amp; time">
+            <legend>Choose a location and time</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="a-office">Service center <span class="sq-required">*</span></label>
+              <select class="sq-select" id="a-office" name="office" required data-required-error="Choose a service center">
+                <option value="">- Select -</option>
+                <option>Capitol City Central</option>
+                <option>Provo Falls</option>
+                <option>Lehi Junction</option>
+                <option>Ridgeview</option>
+                <option>Cedar Hollow</option>
+                <option>Lakeside</option>
+              </select>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="a-date">Date <span class="sq-required">*</span></label>
+              <input class="sq-input sq-input--md" id="a-date" name="date" type="date" required data-required-error="Choose a date">
+            </div>
+
+            <!-- F2: slow button with no feedback while friction is ON -->
+            <p><button type="button" class="sq-btn sq-btn--secondary" id="find-times" data-sq-friction="F2" data-delay="3500" data-target="#a-slots-wrap">Find available times</button></p>
+
+            <div class="sq-alert sq-alert--info" id="a-stop" data-sq-stop="no-time-selected">
+              <p>Choose a service center and date, then select <strong>Find available times</strong>.</p>
+            </div>
+
+            <div id="a-slots-wrap" hidden>
+              <fieldset class="sq-field sq-fieldset">
+                <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px" id="a-slots-legend">Available times <span class="sq-required">*</span></legend>
+                <div class="a-slots" id="a-slots"></div>
+              </fieldset>
+            </div>
+          </fieldset>
+
+          <!-- Step 3: Contact -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Contact">
+            <legend>Your contact information</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="a-name">Full name <span class="sq-required">*</span></label>
+              <input class="sq-input" id="a-name" name="name" required autocomplete="name">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="a-email">Email address <span class="sq-required">*</span></label>
+              <input class="sq-input" id="a-email" name="email" type="email" required autocomplete="email" data-error="Enter an email address like name@example.com">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="a-phone">Mobile phone (optional)</label>
+              <span class="sq-hint">For text reminders. Format: 555-555-0100</span>
+              <input class="sq-input sq-input--md" id="a-phone" name="phone" type="tel" pattern="[0-9]{3}-?[0-9]{3}-?[0-9]{4}" autocomplete="tel" data-error="Enter a 10-digit phone number, like 555-555-0100">
+            </div>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">How should we remind you?</legend>
+              <label class="sq-choice" for="a-rem-email"><input type="radio" id="a-rem-email" name="reminder" value="email" checked> <span>Email</span></label>
+              <label class="sq-choice" for="a-rem-text"><input type="radio" id="a-rem-text" name="reminder" value="text"> <span>Text message</span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 4: Review -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Review">
+            <legend>Review your appointment</legend>
+            <div data-sq-review></div>
+          </fieldset>
+
+          <div data-sq-confirmation hidden>
+            <div class="sq-confirm">
+              <h2>Your appointment is booked</h2>
+              <p>Confirmation number</p>
+              <p><span class="sq-confirm__number" data-sq-confirmation-number></span></p>
+              <p id="a-conf-summary"></p>
+              <p>Please arrive 10 minutes early. To cancel or reschedule, call 1-555-368-4357.</p>
+              <a class="sq-btn" href="index.html">Back to DMV home</a>
+            </div>
+          </div>
+        </form>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <aside class="sq-sidebar" aria-label="Online alternatives">
+        <div class="sq-card sq-card--green">
+          <h3>Skip the trip</h3>
+          <p>Many services don't need an appointment:</p>
+          <ul style="padding-left:20px;margin:8px 0 0">
+            <li><a href="license-renewal.html">Renew your license online</a></li>
+            <li><a href="fees.html">Check fees</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script src="../assets/js/sq-forms.js"></script>
+  <script>
+  (function () {
+    var office = document.getElementById("a-office");
+    var date = document.getElementById("a-date");
+    var wrap = document.getElementById("a-slots-wrap");
+    var slots = document.getElementById("a-slots");
+    var stop = document.getElementById("a-stop");
+    var stopDefault = stop.innerHTML;
+
+    // Earliest date = tomorrow
+    var t = new Date(); t.setDate(t.getDate() + 1);
+    date.min = t.toISOString().slice(0, 10);
+
+    function resetSlots() {
+      wrap.hidden = true; slots.innerHTML = "";
+      stop.hidden = false; stop.innerHTML = stopDefault;
+      stop.classList.remove("sq-alert--error", "is-blocking"); stop.classList.add("sq-alert--info");
+      SQ.data.set("timesLoaded", false);
+    }
+    office.addEventListener("change", function () { resetSlots(); SQ.data.set("appointmentOffice", office.value); });
+    date.addEventListener("change", resetSlots);
+
+    function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return Math.abs(h); }
+
+    window.addEventListener("sq:frictionresolved", function (e) {
+      if (!e.detail || e.detail.id !== "find-times") return;
+      if (!office.value || !date.value) {
+        wrap.hidden = true;
+        stop.hidden = false;
+        stop.innerHTML = "<p>Choose a service center <strong>and</strong> a date first.</p>";
+        return;
+      }
+      var d = new Date(date.value + "T12:00:00");
+      var friday = d.getDay() === 5, weekend = d.getDay() === 0 || d.getDay() === 6;
+      var none = weekend || (office.value === "Ridgeview" && friday);
+      if (none) {
+        wrap.hidden = true;
+        stop.hidden = false;
+        stop.classList.remove("sq-alert--info"); stop.classList.add("sq-alert--warning");
+        stop.innerHTML = "<p class=\"sq-alert__heading\">No times available</p><p>" +
+          (weekend ? "Service centers are closed on weekends." : "Ridgeview is closed on Fridays this month because of the weather.") +
+          " Try another date or service center.</p>";
+        SQ.data.merge({ timesLoaded: false, noTimesAvailable: true }, { refresh: true });
+        return;
+      }
+      var seed = hash(office.value + date.value), html = "", n = 0;
+      for (var m = 8 * 60; m < 16 * 60 + 30; m += 30) {
+        if ((seed >> (m / 30 % 16)) & 1) continue;
+        var hh = Math.floor(m / 60), mm = m % 60, ampm = hh >= 12 ? "p.m." : "a.m.", h12 = hh > 12 ? hh - 12 : hh;
+        var label = h12 + ":" + (mm ? "30" : "00") + " " + ampm;
+        html += '<label class="a-slot" for="a-slot-' + n + '"><input type="radio" id="a-slot-' + n + '" name="timeSlot" value="' + label + '"' + (n === 0 ? ' required data-error="Choose a time"' : "") + "><span>" + label + "</span></label>";
+        n++;
+      }
+      slots.innerHTML = html;
+      wrap.hidden = false;
+      stop.hidden = true;
+      SQ.data.merge({ timesLoaded: true, noTimesAvailable: false, appointmentOffice: office.value });
+    });
+
+    document.querySelector('form[data-form-name="dmv-appointment"]').addEventListener("change", function (e) {
+      if (e.target.name === "service") SQ.data.set("appointmentService", e.target.value);
+    });
+    window.addEventListener("sq:formsubmit", function () {
+      var slot = document.querySelector('input[name="timeSlot"]:checked');
+      document.getElementById("a-conf-summary").innerHTML = "<strong>" + office.value + "</strong> on <strong>" +
+        new Date(date.value + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }) +
+        "</strong> at <strong>" + (slot ? slot.value : "") + "</strong>";
+    });
+  })();
+  </script>
+</body>
+</html>

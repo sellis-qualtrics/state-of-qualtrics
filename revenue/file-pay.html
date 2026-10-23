@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>File &amp; Pay | Revenue | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "revenue", pageType: "form", pageName: "File & Pay", formName: "tax-payment" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .fp-total { background: var(--sq-blue-light); border-radius: 8px; padding: 16px 20px; margin: 8px 0 24px; max-width: 30rem; }
+    .fp-total table { width: 100%; border-collapse: collapse; }
+    .fp-total td { padding: 4px 0; }
+    .fp-total td:last-child { text-align: right; font-weight: 600; }
+    .fp-total tr.total td { border-top: 1px solid var(--sq-gray-50); padding-top: 8px; font-size: 1.125rem; color: var(--sq-navy); font-weight: 700; }
+    .sq-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Make a tax payment</h1>
+        <p class="sq-lead">Pay a balance due, an estimated payment, or an extension payment. Bank payments are free.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <form class="sq-form" data-form-name="tax-payment" data-cancel-href="index.html" data-submit-label="Make payment" novalidate>
+
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Payment type">
+            <legend>What are you paying?</legend>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Payment type <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="fp-type-bal"><input type="radio" id="fp-type-bal" name="paymentType" value="balance" required data-error="Choose a payment type"> <span><strong>Balance due</strong><br><span class="sq-hint" style="margin:0">You filed a return and owe tax</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="fp-type-est"><input type="radio" id="fp-type-est" name="paymentType" value="estimated"> <span><strong>Estimated payment</strong><br><span class="sq-hint" style="margin:0">Quarterly payments for the current year</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="fp-type-ext"><input type="radio" id="fp-type-ext" name="paymentType" value="extension"> <span><strong>Extension payment</strong><br><span class="sq-hint" style="margin:0">Pay what you owe now and file by October 15</span></span></label>
+            </fieldset>
+          </fieldset>
+
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Taxpayer &amp; amount">
+            <legend>Taxpayer and amount</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="fp-ssn">Last 4 digits of your Social Security number <span class="sq-required">*</span></label>
+              <span class="sq-hint">Demo site: enter any 4 numbers.</span>
+              <input class="sq-input sq-input--sm" id="fp-ssn" name="ssnLast4" required pattern="[0-9]{4}" maxlength="4" inputmode="numeric" autocomplete="off" data-sq-mask data-error="Enter exactly 4 numbers">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="fp-year">Tax year <span class="sq-required">*</span></label>
+              <select class="sq-select sq-input--md" id="fp-year" name="taxYear" required data-required-error="Select a tax year">
+                <option value="">- Select -</option>
+                <option>2026</option><option>2025</option><option>2024</option>
+              </select>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="fp-amount">Payment amount (USD) <span class="sq-required">*</span></label>
+              <input class="sq-input sq-input--md" id="fp-amount" name="amount" type="number" min="1" step="0.01" required inputmode="decimal" data-error="Enter an amount of $1.00 or more">
+            </div>
+          </fieldset>
+
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Payment method">
+            <legend>How do you want to pay?</legend>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Payment method <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="fp-m-bank"><input type="radio" id="fp-m-bank" name="method" value="bank" required data-error="Choose a payment method"> <span><strong>Bank account (ACH)</strong>, free</span></label>
+              <label class="sq-choice sq-choice--tile" for="fp-m-card"><input type="radio" id="fp-m-card" name="method" value="card"> <span><strong>Credit or debit card</strong>, 2.5% convenience fee</span></label>
+            </fieldset>
+
+            <div class="fp-total" aria-live="polite">
+              <table>
+                <tr><td>Tax payment</td><td id="fp-t-amount">$0.00</td></tr>
+                <tr id="fp-t-fee-row" hidden><td>Card convenience fee (2.5%)</td><td id="fp-t-fee">$0.00</td></tr>
+                <tr class="total"><td>Total charged</td><td id="fp-t-total">$0.00</td></tr>
+              </table>
+            </div>
+
+            <div data-sq-show-if="method=bank" hidden>
+              <div class="sq-field">
+                <label class="sq-label" for="fp-routing">Routing number <span class="sq-required">*</span></label>
+                <span class="sq-hint">9 digits, on the bottom left of a check</span>
+                <input class="sq-input sq-input--md" id="fp-routing" name="routing" required pattern="[0-9]{9}" maxlength="9" inputmode="numeric" autocomplete="off" data-error="Enter a 9-digit routing number">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="fp-account">Account number <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="fp-account" name="account" required pattern="[0-9]{4,17}" maxlength="17" inputmode="numeric" autocomplete="off" data-sq-mask data-error="Enter 4 to 17 numbers">
+              </div>
+              <fieldset class="sq-field sq-fieldset">
+                <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Account type</legend>
+                <label class="sq-choice" for="fp-acct-chk"><input type="radio" id="fp-acct-chk" name="accountType" value="checking" checked> <span>Checking</span></label>
+                <label class="sq-choice" for="fp-acct-sav"><input type="radio" id="fp-acct-sav" name="accountType" value="savings"> <span>Savings</span></label>
+              </fieldset>
+            </div>
+
+            <div data-sq-show-if="method=card" hidden>
+              <div class="sq-alert sq-alert--info"><p><strong>Demo site:</strong> don't enter a real card. Any 16 numbers will work.</p></div>
+              <div class="sq-field">
+                <label class="sq-label" for="fp-card">Card number <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="fp-card" name="cardNumber" required pattern="[0-9 ]{16,19}" maxlength="19" inputmode="numeric" autocomplete="off" data-sq-mask data-error="Enter a 16-digit card number">
+              </div>
+              <div class="sq-row">
+                <div class="sq-field">
+                  <label class="sq-label" for="fp-exp">Expiration (MM/YY) <span class="sq-required">*</span></label>
+                  <input class="sq-input sq-input--sm" id="fp-exp" name="cardExp" required pattern="(0[1-9]|1[0-2])/[0-9]{2}" maxlength="5" placeholder="MM/YY" autocomplete="off" data-error="Use the format MM/YY, like 04/28">
+                </div>
+                <div class="sq-field">
+                  <label class="sq-label" for="fp-cvv">Security code <span class="sq-required">*</span></label>
+                  <input class="sq-input sq-input--sm" id="fp-cvv" name="cardCvv" type="password" required pattern="[0-9]{3,4}" maxlength="4" inputmode="numeric" autocomplete="off" data-error="Enter the 3- or 4-digit code">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Review">
+            <legend>Review your payment</legend>
+            <div data-sq-review></div>
+            <p id="fp-review-total" style="font-size:1.125rem"></p>
+          </fieldset>
+
+          <div data-sq-confirmation hidden>
+            <div class="sq-confirm">
+              <h2>Your payment was submitted</h2>
+              <p>Confirmation number</p>
+              <p><span class="sq-confirm__number" data-sq-confirmation-number></span></p>
+              <p id="fp-conf-detail"></p>
+              <p>Payments can take 1–2 business days to post to your account.</p>
+              <a class="sq-btn" href="index.html">Back to Revenue home</a>
+            </div>
+          </div>
+        </form>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <aside class="sq-sidebar" aria-label="Filing help">
+        <div class="sq-card sq-card--green">
+          <h3>Need to file a return?</h3>
+          <p>File free online through an approved e-file provider. Most filers get their refund in about 14 days.</p>
+          <div class="sq-card__footer"><a href="refund-status.html">Already filed? Check your refund</a></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script src="../assets/js/sq-forms.js"></script>
+  <script>
+  (function () {
+    var form = document.querySelector('form[data-form-name="tax-payment"]');
+    var engine = SQ.forms.filter(function (f) { return f.form === form; })[0];
+    var amountEl = document.getElementById("fp-amount");
+    function money(n) { return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    function recalc() {
+      var amt = parseFloat(amountEl.value) || 0;
+      var m = form.querySelector('input[name="method"]:checked');
+      var method = m ? m.value : "";
+      var fee = method === "card" ? Math.round(amt * 0.025 * 100) / 100 : 0;
+      var total = amt + fee;
+      document.getElementById("fp-t-amount").textContent = money(amt);
+      document.getElementById("fp-t-fee-row").hidden = method !== "card";
+      document.getElementById("fp-t-fee").textContent = money(fee);
+      document.getElementById("fp-t-total").textContent = money(total);
+      document.getElementById("fp-review-total").innerHTML = "Total charged: <strong>" + money(total) + "</strong>" + (fee ? " (includes " + money(fee) + " card fee)" : "");
+      form.setAttribute("data-submit-label", "Pay " + money(total));
+      if (engine) engine.updateLabel();
+      return { amt: amt, fee: fee, total: total, method: method };
+    }
+    form.addEventListener("input", recalc);
+    form.addEventListener("change", function (e) {
+      var r = recalc();
+      if (e.target.name === "paymentType") SQ.data.set("paymentType", e.target.value);
+      if (e.target.name === "method") SQ.data.merge({ paymentMethod: r.method, paymentFee: r.fee }, { refresh: true });
+      if (e.target.name === "amount") SQ.data.set("paymentAmount", r.amt);
+    });
+    window.addEventListener("sq:formsubmit", function () {
+      var r = recalc();
+      document.getElementById("fp-conf-detail").innerHTML = "We charged <strong>" + money(r.total) + "</strong> to your " + (r.method === "card" ? "card" : "bank account") + ".";
+      SQ.data.merge({ paymentAmount: r.amt, paymentFee: r.fee });
+    });
+    recalc();
+  })();
+  </script>
+</body>
+</html>

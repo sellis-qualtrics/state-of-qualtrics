@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find a Job | Labor | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "labor", pageType: "search", pageName: "Find a Job" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .jb-search { display: grid; grid-template-columns: 2fr 1fr auto; gap: 16px; align-items: end; background: var(--sq-blue-light); border-radius: 8px; padding: 20px; margin-top: 32px; }
+    .jb-search .sq-field { margin: 0; }
+    .jb-search .sq-input, .jb-search .sq-select { max-width: none; }
+    .jb-filters { display: flex; gap: 24px; flex-wrap: wrap; margin: 16px 0 0; }
+    .jb-status { margin: 24px 0 8px; color: var(--sq-gray-70); min-height: 1.5em; }
+    .jb-list { list-style: none; padding: 0; margin: 0; }
+    .jb-job { border: 1px solid var(--sq-gray-10); border-radius: 8px; padding: 20px; margin-bottom: 12px; max-width: 820px; background: #fff; }
+    .jb-job h3 { margin: 0 0 4px; font-size: 1.25rem; }
+    .jb-meta { color: var(--sq-gray-70); font-size: .9375rem; display: flex; flex-wrap: wrap; gap: 4px 16px; margin-bottom: 10px; }
+    .jb-pay { font-weight: 700; color: var(--sq-green-dark); }
+    .jb-desc { margin: 12px 0; padding: 12px 16px; background: var(--sq-gray-5); border-radius: 4px; }
+    @media (max-width: 639px) { .jb-search { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Find a job</h1>
+        <p class="sq-lead">Search open jobs from State of Qualtrics employers. New jobs are added every day.</p>
+      </div>
+    </div>
+
+    <div class="sq-container">
+      <form id="jb-form" class="jb-search" role="search" novalidate>
+        <div class="sq-field">
+          <label class="sq-label" for="jb-q">Keyword or job title</label>
+          <input class="sq-input" id="jb-q" type="search" placeholder="For example: nurse, driver, customer service" autocomplete="off">
+        </div>
+        <div class="sq-field">
+          <label class="sq-label" for="jb-loc">Location</label>
+          <select class="sq-select" id="jb-loc">
+            <option value="">All locations</option>
+            <option>Capitol City</option><option>Provo Falls</option><option>Lehi Junction</option>
+            <option>Ridgeview</option><option>Lakeside</option><option>Remote</option>
+          </select>
+        </div>
+        <!-- F2: slow search with no feedback while friction is ON -->
+        <button type="button" class="sq-btn" id="jobs-search-btn" data-sq-friction="F2" data-delay="3000">Search jobs</button>
+      </form>
+      <div class="jb-filters">
+        <label class="sq-choice" for="jb-ft"><input type="checkbox" id="jb-ft"> <span>Full time only</span></label>
+        <label class="sq-choice" for="jb-remote"><input type="checkbox" id="jb-remote"> <span>Remote only</span></label>
+      </div>
+
+      <p class="jb-status" id="jb-status" aria-live="polite"></p>
+      <ol class="jb-list" id="jb-list" data-count=""></ol>
+
+      <section id="jb-none" hidden>
+        <div class="sq-alert sq-alert--warning">
+          <p class="sq-alert__heading">No jobs match your search</p>
+          <p>Try a different keyword, choose "All locations," or clear the filters.</p>
+        </div>
+        <p>Popular searches: <a href="#" data-jb-q="nurse">nurse</a> · <a href="#" data-jb-q="driver">driver</a> · <a href="#" data-jb-q="customer service">customer service</a> · <a href="#" data-jb-q="warehouse">warehouse</a></p>
+      </section>
+
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script>
+  (function () {
+    var JOBS = [
+      { id: "J101", title: "Registered Nurse, Med-Surg", employer: "Lakeside Medical Center", loc: "Lakeside", pay: "$38–$46/hr", type: "Full time", days: 1, kw: "nurse rn health care hospital medical", desc: "Provide direct patient care on a 32-bed medical-surgical unit. State of Qualtrics RN license required. Sign-on bonus available." },
+      { id: "J102", title: "Patient Registrar", employer: "Lakeside Medical Center", loc: "Lakeside", pay: "$18–$21/hr", type: "Full time", days: 3, kw: "health care front desk customer service admin medical", desc: "Greet patients, verify insurance, and schedule appointments. 1 year of customer service experience preferred." },
+      { id: "J103", title: "CDL Delivery Driver", employer: "Summit Freight Co.", loc: "Ridgeview", pay: "$26/hr", type: "Full time", days: 2, kw: "driver cdl truck delivery transportation logistics", desc: "Regional delivery routes, home every night. Class A CDL and a clean driving record required." },
+      { id: "J104", title: "Warehouse Associate", employer: "Junction Logistics", loc: "Lehi Junction", pay: "$19/hr", type: "Full time", days: 1, kw: "warehouse forklift logistics picker packer", desc: "Pick, pack, and ship orders in a climate-controlled facility. Forklift certification provided." },
+      { id: "J105", title: "Customer Service Representative", employer: "Canyon Credit Union", loc: "Provo Falls", pay: "$20–$23/hr", type: "Full time", days: 5, kw: "customer service bank call center teller", desc: "Help members by phone and chat with account questions. Paid training and full benefits." },
+      { id: "J106", title: "Customer Experience Specialist", employer: "Experience Labs", loc: "Remote", pay: "$24–$28/hr", type: "Full time", days: 2, kw: "customer service customer experience support remote software", desc: "Support customers of a survey software platform by email and chat. Must live in the State of Qualtrics." },
+      { id: "J107", title: "Software Engineer II", employer: "Experience Labs", loc: "Lehi Junction", pay: "$115K–$140K/yr", type: "Full time", days: 4, kw: "software engineer developer javascript technology it", desc: "Build web features for a digital experience platform. 3+ years of JavaScript experience." },
+      { id: "J108", title: "IT Help Desk Technician", employer: "Capitol County Schools", loc: "Capitol City", pay: "$22/hr", type: "Full time", days: 6, kw: "it help desk technology support computer", desc: "Support staff and students with devices, accounts, and classroom technology." },
+      { id: "J109", title: "Line Cook", employer: "The Granary Kitchen", loc: "Capitol City", pay: "$17–$19/hr + tips", type: "Part time", days: 1, kw: "cook kitchen restaurant food service chef", desc: "Prep and cook for a busy downtown restaurant. Evenings and weekends." },
+      { id: "J110", title: "Retail Sales Associate", employer: "Ridgeview Outfitters", loc: "Ridgeview", pay: "$16/hr", type: "Part time", days: 2, kw: "retail sales store cashier customer service", desc: "Help customers find outdoor gear, run the register, and restock. Employee discount." },
+      { id: "J111", title: "Electrician Apprentice", employer: "Bright Line Electric", loc: "Provo Falls", pay: "$21/hr", type: "Full time", days: 8, kw: "electrician apprentice trades construction skilled", desc: "Paid apprenticeship with classroom training. No experience needed. Tools provided." },
+      { id: "J112", title: "Certified Nursing Assistant", employer: "Cedar Hollow Care Center", loc: "Ridgeview", pay: "$19–$22/hr", type: "Full time", days: 3, kw: "cna nurse nursing assistant health care caregiver", desc: "Assist residents with daily living. CNA certification required; we pay for renewal." },
+      { id: "J113", title: "School Bus Driver", employer: "Capitol County Schools", loc: "Capitol City", pay: "$23/hr", type: "Part time", days: 9, kw: "driver bus cdl school transportation", desc: "Morning and afternoon routes. Paid CDL training for qualified candidates." },
+      { id: "J114", title: "Accounting Clerk", employer: "State of Qualtrics Department of Revenue", loc: "Capitol City", pay: "$22–$25/hr", type: "Full time", days: 4, kw: "accounting clerk government finance admin bookkeeping", desc: "Process tax payments and reconcile accounts. State benefits and pension." },
+      { id: "J115", title: "Remote Data Entry Specialist", employer: "Lakeview Health Partners", loc: "Remote", pay: "$18/hr", type: "Part time", days: 7, kw: "data entry remote admin health care", desc: "Enter and verify patient records from home. 20–25 hours per week, flexible schedule." }
+    ];
+
+    var q = document.getElementById("jb-q"), loc = document.getElementById("jb-loc");
+    var ft = document.getElementById("jb-ft"), remote = document.getElementById("jb-remote");
+    var list = document.getElementById("jb-list"), status = document.getElementById("jb-status"), none = document.getElementById("jb-none");
+    var btn = document.getElementById("jobs-search-btn");
+    var term = "", viewed = 0;
+
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+    function render(report) {
+      var words = term.toLowerCase().split(/\s+/).filter(Boolean);
+      var res = JOBS.filter(function (j) {
+        var hay = (j.title + " " + j.employer + " " + j.kw).toLowerCase();
+        if (!words.every(function (w) { return hay.indexOf(w) !== -1; })) return false;
+        if (loc.value && j.loc !== loc.value) return false;
+        if (ft.checked && j.type !== "Full time") return false;
+        if (remote.checked && j.loc !== "Remote") return false;
+        return true;
+      });
+      list.setAttribute("data-count", String(res.length));
+      none.hidden = res.length > 0;
+      status.innerHTML = res.length ? "<strong>" + res.length + "</strong> job" + (res.length === 1 ? "" : "s") + (term ? ' for "<strong>' + esc(term) + '</strong>"' : "") + (loc.value ? " in " + esc(loc.value) : "") : "";
+      list.innerHTML = res.map(function (j) {
+        return '<li class="jb-job" data-job="' + j.id + '">' +
+          "<h3>" + esc(j.title) + "</h3>" +
+          '<div class="jb-meta"><span>' + esc(j.employer) + "</span><span>" + esc(j.loc) + '</span><span class="jb-pay">' + esc(j.pay) + "</span><span>" + j.type + "</span><span>Posted " + j.days + " day" + (j.days === 1 ? "" : "s") + " ago</span></div>" +
+          '<div class="jb-desc" hidden>' + esc(j.desc) + "</div>" +
+          '<div class="sq-btn-group"><button type="button" class="sq-btn sq-btn--outline" data-jb-details aria-expanded="false">View details</button>' +
+          '<button type="button" class="sq-btn" data-jb-apply>Apply on employer site</button></div></li>';
+      }).join("");
+      if (report) {
+        SQ.data.merge({ jobSearchTerm: term, jobLocation: loc.value || "all", jobResultsCount: res.length }, { refresh: true });
+        SQ.emit("sq:jobsearch", { term: term, location: loc.value, count: res.length });
+      }
+    }
+
+    // Keyword search goes through the (slow) Search button. Filters apply instantly.
+    window.addEventListener("sq:frictionresolved", function (e) {
+      if (e.detail && e.detail.id === "jobs-search-btn") { term = q.value.trim(); render(true); }
+    });
+    btn.addEventListener("click", function () { status.textContent = SQ.friction && SQ.friction.on ? "" : "Searching…"; });
+    document.getElementById("jb-form").addEventListener("submit", function (e) { e.preventDefault(); btn.click(); });
+    [loc, ft, remote].forEach(function (el) { el.addEventListener("change", function () { term = q.value.trim(); render(true); }); });
+    none.addEventListener("click", function (e) {
+      var a = e.target.closest("[data-jb-q]"); if (!a) return;
+      e.preventDefault(); q.value = a.getAttribute("data-jb-q"); loc.value = ""; ft.checked = false; remote.checked = false; btn.click();
+    });
+
+    list.addEventListener("click", function (e) {
+      var li = e.target.closest("[data-job]"); if (!li) return;
+      var job = JOBS.filter(function (j) { return j.id === li.getAttribute("data-job"); })[0];
+      if (e.target.closest("[data-jb-details]")) {
+        var d = li.querySelector(".jb-desc"), b = e.target.closest("[data-jb-details]");
+        d.hidden = !d.hidden; b.setAttribute("aria-expanded", String(!d.hidden)); b.textContent = d.hidden ? "View details" : "Hide details";
+        if (!d.hidden) { viewed++; SQ.data.set("jobDetailsViewed", viewed); }
+      }
+      if (e.target.closest("[data-jb-apply]")) openLeave(job);
+    });
+
+    function openLeave(job) {
+      var m = document.createElement("div");
+      m.className = "sq-modal-backdrop";
+      m.innerHTML = '<div class="sq-modal" role="dialog" aria-modal="true" aria-labelledby="jb-leave-title" style="border-top-color:var(--sq-green)">' +
+        '<h2 id="jb-leave-title">You\'re leaving the State of Qualtrics website</h2>' +
+        "<p>You'll apply for <strong>" + esc(job.title) + "</strong> on " + esc(job.employer) + "'s website. The state isn't responsible for content on other sites.</p>" +
+        '<div class="sq-btn-group"><button type="button" class="sq-btn" data-go>Continue to employer site</button><button type="button" class="sq-btn sq-btn--outline" data-x>Stay here</button></div></div>';
+      document.body.appendChild(m);
+      m.querySelector("[data-go]").focus();
+      m.addEventListener("click", function (e) {
+        if (e.target.closest("[data-x]") || e.target === m) m.remove();
+        if (e.target.closest("[data-go]")) {
+          SQ.data.set("jobApplyClicked", job.id, { refresh: true });
+          SQ.emit("sq:jobapply", { id: job.id, title: job.title });
+          m.querySelector(".sq-modal").innerHTML = "<h2>Opening " + esc(job.employer) + "'s careers site…</h2><p>Remember to record this application as a job contact in your weekly certification.</p>" +
+            '<div class="sq-btn-group"><a class="sq-btn" href="weekly-certification.html">Go to weekly certification</a><button type="button" class="sq-btn sq-btn--outline" data-x>Keep searching</button></div>';
+        }
+      });
+    }
+
+    SQ.data.merge({ jobSearchTerm: "", jobLocation: "all", jobResultsCount: JOBS.length, jobDetailsViewed: 0, jobApplyClicked: "" });
+    render(false);
+  })();
+  </script>
+</body>
+</html>

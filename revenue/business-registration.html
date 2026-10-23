@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register a Business | Revenue | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "revenue", pageType: "form", pageName: "Business Registration", formName: "business-registration" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>.sq-row { display: flex; gap: 16px; flex-wrap: wrap; }</style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Register a new business</h1>
+        <p class="sq-lead">Open your State of Qualtrics tax accounts in one application. It takes about 15 minutes.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <form class="sq-form" data-form-name="business-registration" data-cancel-href="index.html" data-submit-label="Submit registration" data-confirmation-prefix="SQ-BUS" novalidate>
+
+          <!-- Step 1 -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Business type">
+            <legend>What type of business is it?</legend>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Business structure <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="br-t-sole"><input type="radio" id="br-t-sole" name="businessType" value="sole" required data-error="Choose a business structure"> <span><strong>Sole proprietor</strong><br><span class="sq-hint" style="margin:0">One owner, not registered with the state</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="br-t-llc"><input type="radio" id="br-t-llc" name="businessType" value="llc"> <span><strong>Limited liability company (LLC)</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="br-t-corp"><input type="radio" id="br-t-corp" name="businessType" value="corporation"> <span><strong>Corporation</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="br-t-part"><input type="radio" id="br-t-part" name="businessType" value="partnership"> <span><strong>Partnership</strong></span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 2 -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Business details">
+            <legend>Business details</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="br-name">Legal business name <span class="sq-required">*</span></label>
+              <input class="sq-input" id="br-name" name="legalName" required>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="br-dba">Doing business as (DBA) name (optional)</label>
+              <input class="sq-input" id="br-dba" name="dba">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="br-fein">Federal Employer ID Number (FEIN) <span class="sq-required">*</span></label>
+              <span class="sq-hint" data-f3-hint="br-fein">9 digits with a dash after the first 2, like 12-3456789</span>
+              <input class="sq-input sq-input--md" id="br-fein" name="fein" required pattern="[0-9]{2}-[0-9]{7}" maxlength="10" autocomplete="off"
+                     data-sq-friction="F3" data-error="Enter 9 digits with a dash after the first 2, like 12-3456789">
+            </div>
+            <div class="sq-field" data-sq-show-if="businessType=llc|corporation|partnership" hidden>
+              <label class="sq-label" for="br-filing">State filing number <span class="sq-required">*</span></label>
+              <span class="sq-hint">From your Certificate of Organization, like 1234567-0160</span>
+              <input class="sq-input sq-input--md" id="br-filing" name="filingNumber" required pattern="[0-9]{7}-[0-9]{4}" maxlength="12" data-error="Use the format 1234567-0160">
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="br-naics">Industry <span class="sq-required">*</span></label>
+              <select class="sq-select" id="br-naics" name="industry" required data-required-error="Choose an industry">
+                <option value="">- Select -</option>
+                <option>Retail trade</option>
+                <option>Food service and restaurants</option>
+                <option>Professional services</option>
+                <option>Construction</option>
+                <option>Software and technology</option>
+                <option>Lodging and short-term rentals</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="br-email">Business email <span class="sq-required">*</span></label>
+              <input class="sq-input" id="br-email" name="email" type="email" required data-error="Enter an email address like name@example.com">
+            </div>
+          </fieldset>
+
+          <!-- Step 3 -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Location">
+            <legend>Business location</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="br-street">Street address <span class="sq-required">*</span></label>
+              <span class="sq-hint">Physical location, not a P.O. box</span>
+              <input class="sq-input" id="br-street" name="street" required>
+            </div>
+            <div class="sq-row">
+              <div class="sq-field">
+                <label class="sq-label" for="br-city">City <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="br-city" name="city" required>
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="br-zip">ZIP code <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--sm" id="br-zip" name="zip" required pattern="[0-9]{5}" maxlength="5" inputmode="numeric" data-error="Enter a 5-digit ZIP code">
+              </div>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="br-county">County <span class="sq-required">*</span></label>
+              <select class="sq-select sq-input--md" id="br-county" name="county" required data-required-error="Choose a county">
+                <option value="">- Select -</option>
+                <option>Capitol County</option><option>Canyon County</option><option>Junction County</option>
+                <option>Summit County</option><option>Cedar County</option><option>Lake County</option>
+              </select>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="br-start">Business start date in the State of Qualtrics <span class="sq-required">*</span></label>
+              <input class="sq-input sq-input--md" id="br-start" name="startDate" type="date" required data-required-error="Enter a start date">
+            </div>
+          </fieldset>
+
+          <!-- Step 4 -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Tax accounts">
+            <legend>Which tax accounts do you need?</legend>
+            <fieldset class="sq-field sq-fieldset" data-sq-require-one="Select at least one tax account">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Select all that apply <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="br-acc-sales"><input type="checkbox" id="br-acc-sales" name="taxAccounts" value="sales"> <span><strong>Sales &amp; use tax</strong><br><span class="sq-hint" style="margin:0">You sell goods or taxable services</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="br-acc-wh"><input type="checkbox" id="br-acc-wh" name="taxAccounts" value="withholding"> <span><strong>Employer withholding</strong><br><span class="sq-hint" style="margin:0">You have employees in the state</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="br-acc-ui"><input type="checkbox" id="br-acc-ui" name="taxAccounts" value="unemployment"> <span><strong>Unemployment insurance</strong><br><span class="sq-hint" style="margin:0">Required for most employers</span></span></label>
+              <label class="sq-choice sq-choice--tile" for="br-acc-room"><input type="checkbox" id="br-acc-room" name="taxAccounts" value="transient-room"> <span><strong>Transient room tax</strong><br><span class="sq-hint" style="margin:0">You rent rooms for less than 30 days</span></span></label>
+            </fieldset>
+            <div class="sq-field" data-sq-show-if="taxAccounts=withholding" hidden>
+              <label class="sq-label" for="br-emp">How many employees do you expect in the first year? <span class="sq-required">*</span></label>
+              <input class="sq-input sq-input--sm" id="br-emp" name="employees" type="number" min="1" required data-error="Enter 1 or more">
+            </div>
+          </fieldset>
+
+          <!-- Step 5 -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Review">
+            <legend>Review your registration</legend>
+            <div data-sq-review></div>
+            <div class="sq-field">
+              <label class="sq-choice" for="br-certify"><input type="checkbox" id="br-certify" name="certify" required data-required-error="You must certify to submit"> <span>I certify that the information in this application is true and complete.</span></label>
+            </div>
+          </fieldset>
+
+          <div data-sq-confirmation hidden>
+            <div class="sq-confirm">
+              <h2>Your business registration was submitted</h2>
+              <p>Your account ID is</p>
+              <p><span class="sq-confirm__number" data-sq-confirmation-number></span></p>
+              <p>We'll email your tax account numbers and filing schedule within 5 business days.</p>
+              <a class="sq-btn" href="index.html">Back to Revenue home</a>
+            </div>
+          </div>
+        </form>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <aside class="sq-sidebar" aria-label="Before you start">
+        <div class="sq-card sq-card--blue">
+          <h3>Before you start</h3>
+          <ul style="padding-left:20px;margin:0">
+            <li>Your Federal Employer ID Number (FEIN)</li>
+            <li>Your state filing number (LLCs, corporations, partnerships)</li>
+            <li>Your business address and start date</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script src="../assets/js/sq-forms.js"></script>
+  <script>
+    (function () {
+      var form = document.querySelector('form[data-form-name="business-registration"]');
+      form.addEventListener("change", function (e) {
+        if (e.target.name === "businessType") SQ.data.set("businessType", e.target.value);
+        if (e.target.name === "taxAccounts") {
+          var v = [].map.call(form.querySelectorAll('input[name="taxAccounts"]:checked'), function (c) { return c.value; });
+          SQ.data.set("taxAccounts", v.join(","));
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Department of Labor &amp; Workforce | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "labor", pageType: "landing", pageName: "Labor Home" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .lb-timeline { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: lt; }
+    .lb-timeline li { max-width: none; background: #fff; border-radius: 8px; padding: 20px; border-top: 6px solid var(--sq-green); counter-increment: lt; }
+    .lb-timeline li::before { content: "Step " counter(lt); display: block; font-size: .8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--sq-green); margin-bottom: 6px; }
+    .lb-timeline h3 { font-size: 1.125rem; }
+    .lb-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+    .lb-fact { background: var(--sq-green-light); border-radius: 8px; padding: 20px; text-align: center; }
+    .lb-fact strong { display: block; font-family: var(--sq-font-serif); font-size: 2rem; color: var(--sq-navy); }
+    .lb-chart { position: relative; border: 1px solid var(--sq-gray-10); border-radius: 8px; padding: 20px; background: #fff; }
+    .lb-chart svg { width: 100%; height: auto; display: block; }
+    .lb-chart__cta { position: absolute; right: 16px; top: 16px; font-weight: 700; color: var(--sq-green); text-decoration: underline; font-size: .9375rem; }
+    @media (max-width: 1023px) { .lb-timeline { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 639px) { .lb-timeline, .lb-facts { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Department of Labor &amp; Workforce</h1>
+        <p class="sq-lead">Unemployment benefits, job search help, and workforce training for State of Qualtrics workers.</p>
+        <div class="sq-btn-group" style="margin-top:16px">
+          <a class="sq-btn" href="file-claim.html">File an unemployment claim</a>
+          <a class="sq-btn sq-btn--outline" href="weekly-certification.html">Weekly certification</a>
+          <a class="sq-btn sq-btn--outline" href="jobs.html">Find a job</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="sq-section" aria-labelledby="how-title">
+      <div class="sq-container">
+        <h2 id="how-title">How unemployment benefits work</h2>
+        <ol class="lb-timeline">
+          <li><h3>File your claim</h3><p>Apply online in about 25 minutes. Have your employer information ready.</p></li>
+          <li><h3>Serve your waiting week</h3><p>The first eligible week is unpaid. You still need to certify for it.</p></li>
+          <li><h3>Certify every week</h3><p>Each week, report any work and at least 3 job search contacts.</p></li>
+          <li><h3>Get paid</h3><p>Payments arrive by direct deposit or debit card 2–3 days after you certify.</p></li>
+        </ol>
+        <div class="lb-facts">
+          <div class="lb-fact"><strong>$712</strong>Maximum weekly benefit</div>
+          <div class="lb-fact"><strong>26 weeks</strong>Maximum length of benefits</div>
+          <div class="lb-fact"><strong>3</strong>Job contacts required each week</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sq-section sq-section--blue" aria-labelledby="market-title">
+      <div class="sq-container sq-grid sq-grid--2">
+        <div>
+          <h2 id="market-title">Job seeker services</h2>
+          <ul>
+            <li><a href="jobs.html">Search more than 4,000 open jobs</a></li>
+            <li>Free resume reviews at every Workforce Center</li>
+            <li>Training grants for in-demand careers in health care, IT, and the skilled trades</li>
+            <li>Job fair: November 12 at the Capitol City Convention Center</li>
+          </ul>
+        </div>
+        <!-- F1: dead click. Looks like an interactive dashboard while friction is ON -->
+        <div class="lb-chart" id="labor-chart" data-sq-friction="F1" data-href="jobs.html" role="img" aria-label="Chart: unemployment rate fell from 4.1% to 3.2% over the past 12 months">
+          <span class="lb-chart__cta">Explore the data →</span>
+          <h3 style="font-size:1.125rem">Labor market snapshot</h3>
+          <p style="margin:0 0 8px;color:var(--sq-gray-70);font-size:.9375rem">Unemployment rate, last 12 months</p>
+          <svg viewBox="0 0 320 140" aria-hidden="true">
+            <line x1="20" y1="120" x2="310" y2="120" stroke="#e6e6e6"/>
+            <line x1="20" y1="80" x2="310" y2="80" stroke="#e6e6e6"/>
+            <line x1="20" y1="40" x2="310" y2="40" stroke="#e6e6e6"/>
+            <polyline fill="none" stroke="#3e7d60" stroke-width="3" points="20,30 46,34 72,40 98,38 124,52 150,60 176,64 202,72 228,78 254,84 280,90 306,96"/>
+            <g fill="#3e7d60"><circle cx="20" cy="30" r="4"/><circle cx="306" cy="96" r="5"/></g>
+            <text x="22" y="20" font-size="11" fill="#1c2d5c" font-family="sans-serif">4.1%</text>
+            <text x="276" y="114" font-size="11" fill="#1c2d5c" font-family="sans-serif">3.2%</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="sq-section" id="resources" aria-labelledby="res-title">
+      <div class="sq-container">
+        <h2 id="res-title">Resources for claimants</h2>
+        <ul>
+          <!-- F5: broken link. Goes to 404 while friction is ON -->
+          <li><a id="labor-handbook-link" href="#resources" data-sq-friction="F5" data-fixed-href="#resources">Claimant Handbook (PDF, 2.1 MB)</a></li>
+          <li>Report fraud or identity theft: call 1-555-562-7100</li>
+          <li>Appeals: you have 15 days from the date on your decision letter to appeal</li>
+          <li>Need help with your claim? Call 1-555-562-7000, Mon–Fri 8 a.m.–5 p.m.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sq-section sq-section--blue" aria-labelledby="faq-title">
+      <div class="sq-container">
+        <h2 id="faq-title">Frequently asked questions</h2>
+        <div class="sq-accordion" style="max-width:800px;margin-top:16px">
+          <details>
+            <summary>Can I get benefits if I quit my job?</summary>
+            <div><p>Possibly. If you quit for a good reason connected to the job, you may still qualify. We'll review your situation after you file.</p></div>
+          </details>
+          <details>
+            <summary>What counts as a job search contact?</summary>
+            <div><p>Applying for a job, interviewing, attending a job fair, or meeting with a Workforce Center counselor. You need at least 3 each week.</p></div>
+          </details>
+          <details>
+            <summary>Why did my session time out?</summary>
+            <div><p>For your security, claim forms sign you out after a few minutes without activity. Have your information ready before you start.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="sq-container">
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+</body>
+</html>

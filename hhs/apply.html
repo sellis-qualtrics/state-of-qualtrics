@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apply for Benefits | HHS | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "hhs", pageType: "form", pageName: "Apply for Benefits", formName: "benefits-application" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .sq-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .ap-upload { border: 2px dashed var(--sq-gray-50); border-radius: 8px; padding: 20px; max-width: 34rem; background: var(--sq-gray-5); margin-bottom: 16px; }
+    .ap-upload input[type=file] { display: block; margin: 8px 0 16px; font: inherit; }
+    .ap-file-ok { color: var(--sq-green-dark); font-weight: 700; margin: 12px 0 0; }
+    .ap-file-err { color: var(--sq-error); font-weight: 700; margin: 12px 0 0; }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Apply for benefits</h1>
+        <p class="sq-lead">One application for SNAP, Medicaid, cash assistance, and child care assistance. About 20 minutes.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <div class="sq-alert sq-alert--success" id="ap-from-screener" hidden>
+          <p>We pre-selected the programs from your eligibility results. You can change them below.</p>
+        </div>
+
+        <form class="sq-form" data-form-name="benefits-application" data-cancel-href="index.html" data-submit-label="Submit application" data-confirmation-prefix="SQ-HHS" novalidate>
+
+          <!-- Step 1: Programs -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Programs">
+            <legend>Which programs are you applying for?</legend>
+            <fieldset class="sq-field sq-fieldset" data-sq-require-one="Select at least one program">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Select all that apply <span class="sq-required">*</span></legend>
+              <label class="sq-choice sq-choice--tile" for="ap-p-snap"><input type="checkbox" id="ap-p-snap" name="programs" value="snap"> <span><strong>SNAP food benefits</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="ap-p-medicaid"><input type="checkbox" id="ap-p-medicaid" name="programs" value="medicaid"> <span><strong>Medicaid</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="ap-p-tanf"><input type="checkbox" id="ap-p-tanf" name="programs" value="tanf"> <span><strong>Cash assistance (TANF)</strong></span></label>
+              <label class="sq-choice sq-choice--tile" for="ap-p-childcare"><input type="checkbox" id="ap-p-childcare" name="programs" value="childcare"> <span><strong>Child care assistance</strong></span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 2: About you -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="About you">
+            <legend>About you</legend>
+            <div class="sq-row">
+              <div class="sq-field">
+                <label class="sq-label" for="ap-first">First name <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="ap-first" name="firstName" required autocomplete="given-name">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="ap-last">Last name <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="ap-last" name="lastName" required autocomplete="family-name">
+              </div>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="ap-dob">Date of birth <span class="sq-required">*</span></label>
+              <span class="sq-hint" data-f3-hint="ap-dob">Use MM/DD/YYYY, like 04/15/1988</span>
+              <input class="sq-input sq-input--md" id="ap-dob" name="dob" required maxlength="10" autocomplete="bday" inputmode="numeric"
+                     pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/(19|20)[0-9]{2}"
+                     data-sq-friction="F3" data-error="Use MM/DD/YYYY, like 04/15/1988">
+            </div>
+            <div class="sq-row">
+              <div class="sq-field">
+                <label class="sq-label" for="ap-phone">Phone <span class="sq-required">*</span></label>
+                <span class="sq-hint">A caseworker will call you for your interview.</span>
+                <input class="sq-input sq-input--md" id="ap-phone" name="phone" type="tel" required pattern="[0-9]{3}-?[0-9]{3}-?[0-9]{4}" autocomplete="tel" data-error="Enter a 10-digit phone number, like 555-555-0100">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="ap-email">Email <span class="sq-required">*</span></label>
+                <span class="sq-hint">&nbsp;</span>
+                <input class="sq-input sq-input--md" id="ap-email" name="email" type="email" required autocomplete="email" data-error="Enter an email address like name@example.com">
+              </div>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="ap-street">Home address <span class="sq-required">*</span></label>
+              <input class="sq-input" id="ap-street" name="street" required autocomplete="address-line1">
+            </div>
+            <div class="sq-row">
+              <div class="sq-field">
+                <label class="sq-label" for="ap-city">City <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="ap-city" name="city" required autocomplete="address-level2">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="ap-zip">ZIP code <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--sm" id="ap-zip" name="zip" required pattern="[0-9]{5}" maxlength="5" inputmode="numeric" autocomplete="postal-code" data-error="Enter a 5-digit ZIP code">
+              </div>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="ap-county">County <span class="sq-required">*</span></label>
+              <select class="sq-select sq-input--md" id="ap-county" name="county" required data-required-error="Choose your county">
+                <option value="">- Select -</option>
+                <option>Capitol County</option><option>Canyon County</option><option>Junction County</option>
+                <option>Summit County</option><option>Cedar County</option><option>Lake County</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <!-- Step 3: Household -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Household">
+            <legend>Your household</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="ap-size">How many people live in your household? <span class="sq-required">*</span></label>
+              <select class="sq-select sq-input--sm" id="ap-size" name="householdSize" required data-required-error="Choose your household size">
+                <option value="">-</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+              </select>
+            </div>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Is anyone else in your household applying? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="ap-others-no"><input type="radio" id="ap-others-no" name="othersApplying" value="no" required data-error="Answer the household question"> <span>No, just me</span></label>
+              <label class="sq-choice" for="ap-others-yes"><input type="radio" id="ap-others-yes" name="othersApplying" value="yes"> <span>Yes</span></label>
+            </fieldset>
+            <div class="sq-field" data-sq-show-if="othersApplying=yes" hidden>
+              <label class="sq-label" for="ap-members">Names and relationship to you <span class="sq-required">*</span></label>
+              <span class="sq-hint">One person per line, like "Maya Lopez, daughter, age 6"</span>
+              <textarea class="sq-textarea" id="ap-members" name="householdMembers" required data-required-error="List the other people applying"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Step 4: Income & documents -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Income &amp; documents">
+            <legend>Income and documents</legend>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Are you working right now? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="ap-emp-ft"><input type="radio" id="ap-emp-ft" name="employment" value="full-time" required data-error="Tell us if you're working"> <span>Yes, full time</span></label>
+              <label class="sq-choice" for="ap-emp-pt"><input type="radio" id="ap-emp-pt" name="employment" value="part-time"> <span>Yes, part time</span></label>
+              <label class="sq-choice" for="ap-emp-no"><input type="radio" id="ap-emp-no" name="employment" value="not-working"> <span>No</span></label>
+            </fieldset>
+            <div data-sq-show-if="employment=full-time|part-time" hidden>
+              <div class="sq-field">
+                <label class="sq-label" for="ap-employer">Employer name <span class="sq-required">*</span></label>
+                <input class="sq-input" id="ap-employer" name="employer" required>
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="ap-pay">Monthly pay before taxes (USD) <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--md" id="ap-pay" name="monthlyPay" type="number" min="0" required data-error="Enter a number, like 2100">
+              </div>
+            </div>
+
+            <h3 style="margin-top:8px">Proof of income</h3>
+            <p>Upload pay stubs or an employer letter from the last 30 days. If you have no income, upload any document that shows your current situation.</p>
+            <div class="ap-upload">
+              <label class="sq-label" for="ap-file">Choose a file (PDF, JPG, or PNG, up to 10 MB)</label>
+              <input type="file" id="ap-file" accept=".pdf,.jpg,.jpeg,.png">
+              <!-- F2: slow upload with no feedback while friction is ON -->
+              <button type="button" class="sq-btn sq-btn--secondary" id="ap-upload-btn" data-sq-friction="F2" data-delay="4000">Upload proof of income</button>
+              <p id="ap-upload-status" aria-live="polite"></p>
+            </div>
+            <div class="sq-field">
+              <label class="sq-choice" for="ap-later"><input type="checkbox" id="ap-later" value="yes"> <span>I'll mail or bring my documents later</span></label>
+            </div>
+            <div class="sq-alert sq-alert--info" id="ap-docs-stop" data-sq-stop="documents-required">
+              <p>Upload a document, or choose "I'll mail or bring my documents later," to continue.</p>
+            </div>
+          </fieldset>
+
+          <!-- Step 5: Review & sign -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Review &amp; sign">
+            <legend>Review and sign</legend>
+            <div data-sq-review></div>
+            <p id="ap-docs-review"></p>
+            <div class="sq-field">
+              <label class="sq-label" for="ap-sign">Electronic signature <span class="sq-required">*</span></label>
+              <span class="sq-hint">Type your full name.</span>
+              <input class="sq-input" id="ap-sign" name="signature" required autocomplete="off" data-required-error="Type your full name to sign">
+            </div>
+            <div class="sq-field">
+              <label class="sq-choice" for="ap-certify"><input type="checkbox" id="ap-certify" name="certify" required data-required-error="You must certify to submit"> <span>I certify, under penalty of perjury, that the information in this application is true and complete.</span></label>
+            </div>
+          </fieldset>
+
+          <div data-sq-confirmation hidden>
+            <div class="sq-confirm">
+              <h2>Your application was submitted</h2>
+              <p>Application number</p>
+              <p><span class="sq-confirm__number" data-sq-confirmation-number></span></p>
+              <h3>What happens next</h3>
+              <ol>
+                <li>A caseworker will call you within <strong>10 business days</strong> for a short interview.</li>
+                <li id="ap-conf-docs">Send any missing documents within 10 days.</li>
+                <li>You'll get a decision letter within <strong>30 days</strong>.</li>
+              </ol>
+              <a class="sq-btn" href="index.html">Back to HHS home</a>
+            </div>
+          </div>
+        </form>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <aside class="sq-sidebar" aria-label="What you'll need">
+        <div class="sq-card sq-card--blue">
+          <h3>What you'll need</h3>
+          <ul style="padding-left:20px;margin:0">
+            <li>Names and birth dates for everyone applying</li>
+            <li>Proof of income from the last 30 days</li>
+            <li>Your rent or mortgage amount</li>
+          </ul>
+          <p style="margin-top:12px">Not sure what you qualify for? <a href="eligibility.html">Check eligibility first</a>.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script>
+  // Registered BEFORE sq-friction.js. Upload logic, the documents stop panel, and prefill from the screener.
+  (function () {
+    var form = document.querySelector('form[data-form-name="benefits-application"]');
+    var file = document.getElementById("ap-file");
+    var btn = document.getElementById("ap-upload-btn");
+    var status = document.getElementById("ap-upload-status");
+    var later = document.getElementById("ap-later");
+    var stop = document.getElementById("ap-docs-stop");
+    var uploaded = false, attempts = 0, uploadedName = "";
+
+    // Prefill programs from ?programs=snap,medicaid
+    var pre = (new URLSearchParams(location.search).get("programs") || "").split(",").filter(Boolean);
+    if (pre.length) {
+      pre.forEach(function (p) { var cb = document.getElementById("ap-p-" + p); if (cb) cb.checked = true; });
+      document.getElementById("ap-from-screener").hidden = false;
+    }
+    SQ.data.merge({ fromScreener: pre.length > 0, appliedPrograms: pre.join(","), documentsUploaded: false, docsUploadAttempts: 0, docsLater: false });
+
+    function updateStop() {
+      var ok = uploaded || later.checked;
+      stop.hidden = ok;
+      if (!ok) { stop.classList.remove("sq-alert--error", "is-blocking"); stop.classList.add("sq-alert--info"); }
+    }
+    later.addEventListener("change", function () { SQ.data.set("docsLater", later.checked); updateStop(); });
+    file.addEventListener("change", function () { status.className = ""; status.textContent = file.files.length ? "Ready to upload: " + file.files[0].name : ""; });
+
+    window.addEventListener("sq:frictionresolved", function (e) {
+      if (!e.detail || e.detail.id !== "ap-upload-btn") return;
+      attempts++;
+      if (!file.files || !file.files.length) {
+        status.className = "ap-file-err";
+        status.textContent = "We couldn't upload your document. Choose a file first, then select Upload.";
+        SQ.data.merge({ docsUploadAttempts: attempts }, { refresh: attempts >= 2 });
+        return;
+      }
+      uploaded = true; uploadedName = file.files[0].name;
+      status.className = "ap-file-ok";
+      status.textContent = "✓ Uploaded: " + uploadedName;
+      SQ.data.merge({ docsUploadAttempts: attempts, documentsUploaded: true }, { refresh: true });
+      updateStop();
+    });
+
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "programs") {
+        var v = [].map.call(form.querySelectorAll('input[name="programs"]:checked'), function (c) { return c.value; });
+        SQ.data.set("appliedPrograms", v.join(","));
+      }
+    });
+    window.addEventListener("sq:formstep", function (e) {
+      if (e.detail && e.detail.name === "Review & sign") {
+        document.getElementById("ap-docs-review").innerHTML = "<strong>Documents:</strong> " +
+          (uploaded ? "Uploaded (" + uploadedName.replace(/[<>&]/g, "") + ")" : "Will mail or bring later");
+      }
+    });
+    window.addEventListener("sq:formsubmit", function () {
+      document.getElementById("ap-conf-docs").textContent = uploaded
+        ? "We received your proof of income. We'll tell you if we need anything else."
+        : "Mail or bring your proof of income to any HHS office within 10 days.";
+    });
+    updateStop();
+  })();
+  </script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script src="../assets/js/sq-forms.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- State of Qualtrics: CHILD PAGE TEMPLATE (P0 §5)
+     Copy into an agency folder (e.g. /dmv/). Use data-root="../" inside agency folders and "./" at the site root. -->
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Title | Agency | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = {
+      agency: "dmv",            // portal | dmv | revenue | hhs | labor
+      pageType: "service",      // home | landing | service | form | search | confirmation | error | directory | contact
+      pageName: "Page Title",
+      formName: ""              // set on pages with a multi-step form
+      // notice: "Optional cream notice banner HTML"
+    };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Page Title</h1>
+        <p class="sq-lead">One-sentence summary of what residents can do here.</p>
+      </div>
+    </div>
+
+    <div class="sq-container">
+      <!-- page content -->
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script src="../assets/js/sq-forms.js"></script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check If You Qualify for Benefits | HHS | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "hhs", pageType: "form", pageName: "Benefits Eligibility Screener", formName: "benefits-screener" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>
+    .el-results { list-style: none; padding: 0; margin: 16px 0 24px; }
+    .el-results li { border: 1px solid var(--sq-green-light); border-left: 6px solid var(--sq-green); border-radius: 4px; padding: 14px 18px; margin-bottom: 12px; background: #fff; max-width: 640px; }
+    .el-results strong { color: var(--sq-navy); font-size: 1.125rem; display: block; }
+    .el-results span { color: var(--sq-gray-70); }
+    .el-results .el-note { display: block; margin-top: 4px; font-size: .9375rem; }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Check if you qualify for benefits</h1>
+        <p class="sq-lead">Answer a few questions to see which programs may fit your household. This is not an application, and your answers are not saved.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <form class="sq-form" data-form-name="benefits-screener" data-cancel-href="index.html" data-submit-label="See my results" novalidate>
+
+          <!-- Step 1: Household -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Household">
+            <legend>Tell us about your household</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="el-county">County <span class="sq-required">*</span></label>
+              <select class="sq-select sq-input--md" id="el-county" name="county" required data-required-error="Choose your county">
+                <option value="">- Select -</option>
+                <option>Capitol County</option><option>Canyon County</option><option>Junction County</option>
+                <option>Summit County</option><option>Cedar County</option><option>Lake County</option>
+              </select>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label" for="el-size">How many people live in your household? <span class="sq-required">*</span></label>
+              <span class="sq-hint">Count yourself and anyone you buy and make food with.</span>
+              <select class="sq-select sq-input--sm" id="el-size" name="householdSize" required data-required-error="Choose your household size">
+                <option value="">-</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+              </select>
+            </div>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Are there children under 18 in your household? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="el-kids-yes"><input type="radio" id="el-kids-yes" name="hasChildren" value="yes" required data-error="Answer the question about children"> <span>Yes</span></label>
+              <label class="sq-choice" for="el-kids-no"><input type="radio" id="el-kids-no" name="hasChildren" value="no"> <span>No</span></label>
+            </fieldset>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Is anyone in your household pregnant? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="el-preg-yes"><input type="radio" id="el-preg-yes" name="pregnant" value="yes" required data-error="Answer the question about pregnancy"> <span>Yes</span></label>
+              <label class="sq-choice" for="el-preg-no"><input type="radio" id="el-preg-no" name="pregnant" value="no"> <span>No</span></label>
+            </fieldset>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Is anyone 65 or older, or living with a disability? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="el-sen-yes"><input type="radio" id="el-sen-yes" name="seniorDisabled" value="yes" required data-error="Answer the question about age or disability"> <span>Yes</span></label>
+              <label class="sq-choice" for="el-sen-no"><input type="radio" id="el-sen-no" name="seniorDisabled" value="no"> <span>No</span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 2: Children (branch) -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Children" data-sq-step-if="hasChildren=yes">
+            <legend>About the children in your household</legend>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">How old is the youngest child? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="el-age-0"><input type="radio" id="el-age-0" name="youngestAge" value="under1" required data-error="Choose an age range"> <span>Under 1 year</span></label>
+              <label class="sq-choice" for="el-age-1"><input type="radio" id="el-age-1" name="youngestAge" value="1-4"> <span>1 to 4 years</span></label>
+              <label class="sq-choice" for="el-age-5"><input type="radio" id="el-age-5" name="youngestAge" value="5-12"> <span>5 to 12 years</span></label>
+              <label class="sq-choice" for="el-age-13"><input type="radio" id="el-age-13" name="youngestAge" value="13-17"> <span>13 to 17 years</span></label>
+            </fieldset>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Do you need child care so you can work or go to school? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="el-care-yes"><input type="radio" id="el-care-yes" name="needsChildCare" value="yes" required data-error="Answer the child care question"> <span>Yes</span></label>
+              <label class="sq-choice" for="el-care-no"><input type="radio" id="el-care-no" name="needsChildCare" value="no"> <span>No</span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 3: Income -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Income">
+            <legend>Household income</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="el-income">Total monthly household income before taxes (USD) <span class="sq-required">*</span></label>
+              <span class="sq-hint">Include wages, self-employment, unemployment, Social Security, and child support. Enter 0 if none.</span>
+              <input class="sq-input sq-input--md" id="el-income" name="monthlyIncome" type="number" min="0" step="1" required inputmode="numeric" data-error="Enter a number, like 2400">
+            </div>
+            <fieldset class="sq-field sq-fieldset" data-sq-require-one="Select at least one income source, or No income">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Where does the income come from? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="el-src-job"><input type="checkbox" id="el-src-job" name="incomeSources" value="job"> <span>A job</span></label>
+              <label class="sq-choice" for="el-src-self"><input type="checkbox" id="el-src-self" name="incomeSources" value="self"> <span>Self-employment</span></label>
+              <label class="sq-choice" for="el-src-ui"><input type="checkbox" id="el-src-ui" name="incomeSources" value="unemployment"> <span>Unemployment benefits</span></label>
+              <label class="sq-choice" for="el-src-ss"><input type="checkbox" id="el-src-ss" name="incomeSources" value="social-security"> <span>Social Security or disability</span></label>
+              <label class="sq-choice" for="el-src-cs"><input type="checkbox" id="el-src-cs" name="incomeSources" value="child-support"> <span>Child support</span></label>
+              <label class="sq-choice" for="el-src-none"><input type="checkbox" id="el-src-none" name="incomeSources" value="none"> <span>No income</span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 4: Housing -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Housing &amp; utilities">
+            <legend>Housing and utilities</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="el-rent">Monthly rent or mortgage (USD) <span class="sq-required">*</span></label>
+              <span class="sq-hint">Enter 0 if you don't pay rent or a mortgage.</span>
+              <input class="sq-input sq-input--md" id="el-rent" name="monthlyHousing" type="number" min="0" step="1" required inputmode="numeric" data-error="Enter a number, like 1100">
+            </div>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Do you pay for heating or cooling? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="el-util-yes"><input type="radio" id="el-util-yes" name="paysUtilities" value="yes" required data-error="Answer the utilities question"> <span>Yes</span></label>
+              <label class="sq-choice" for="el-util-no"><input type="radio" id="el-util-no" name="paysUtilities" value="no"> <span>No, it's included in my rent</span></label>
+            </fieldset>
+          </fieldset>
+
+          <!-- Step 5: Review -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Review">
+            <legend>Check your answers</legend>
+            <div data-sq-review></div>
+          </fieldset>
+
+          <!-- Results -->
+          <div data-sq-confirmation hidden>
+            <div id="el-results-yes" hidden>
+              <div class="sq-confirm">
+                <h2>You may qualify for <span id="el-count"></span></h2>
+                <p>Based on your answers, your household may be eligible for:</p>
+                <ul class="el-results" id="el-results-list"></ul>
+                <div class="sq-btn-group">
+                  <a class="sq-btn" id="el-apply-btn" href="apply.html">Apply for these programs</a>
+                  <a class="sq-btn sq-btn--outline" href="index.html">Back to HHS home</a>
+                </div>
+                <p style="margin-top:16px;font-size:.9375rem;color:var(--sq-gray-70)">This screener gives an estimate only. A caseworker makes the final decision after you apply.</p>
+              </div>
+            </div>
+            <div id="el-results-no" hidden>
+              <div class="sq-alert sq-alert--warning">
+                <p class="sq-alert__heading">You may not qualify for these programs right now</p>
+                <p>Based on your income and household size, you may be over the limit for SNAP, Medicaid, and other programs. You can still apply, and a caseworker will review your situation.</p>
+              </div>
+              <h2 style="font-size:1.5rem">Other help</h2>
+              <ul>
+                <li>Dial <strong>211</strong> for local food banks, rent help, and other community resources</li>
+                <li>Check health plans on the state marketplace during open enrollment</li>
+                <li><a href="apply.html">Apply anyway</a></li>
+              </ul>
+            </div>
+          </div>
+        </form>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <aside class="sq-sidebar" aria-label="About this screener">
+        <div class="sq-card sq-card--blue">
+          <h3>About this screener</h3>
+          <p>It takes about 5 minutes. We don't save your answers or share them with anyone.</p>
+          <p style="margin-top:8px">Questions? Call <strong>1-555-447-4357</strong>.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script src="../assets/js/sq-forms.js"></script>
+  <script>
+  (function () {
+    var form = document.querySelector('form[data-form-name="benefits-screener"]');
+    function val(name) {
+      var els = form.querySelectorAll('[name="' + name + '"]'), v = "";
+      [].forEach.call(els, function (e) { if (e.type === "radio" || e.type === "checkbox") { if (e.checked) v = e.value; } else v = e.value; });
+      return v;
+    }
+
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "householdSize") SQ.data.set("householdSize", parseInt(e.target.value, 10) || 0);
+      if (e.target.name === "hasChildren") SQ.data.set("hasChildren", e.target.value);
+      if (e.target.name === "monthlyIncome") SQ.data.set("monthlyIncome", parseFloat(e.target.value) || 0);
+    });
+
+    // Program rules (demo logic): fictitious monthly guideline = 1305 + 460 x (size - 1)
+    var PROGRAMS = {
+      snap:     { name: "SNAP food benefits", why: "Monthly money for groceries on an EBT card.", apply: true },
+      medicaid: { name: "Medicaid", why: "Free or low-cost health coverage.", apply: true },
+      wic:      { name: "WIC", why: "Healthy food for pregnant people and young children.", apply: false, note: "Apply for WIC at your county health office or call 1-555-942-6000." },
+      tanf:     { name: "Cash assistance (TANF)", why: "Short-term cash help for families with children.", apply: true },
+      childcare:{ name: "Child care assistance", why: "Help paying for child care while you work or go to school.", apply: true },
+      liheap:   { name: "Energy assistance (LIHEAP)", why: "Help with heating and cooling bills.", apply: false, note: "Energy assistance applications open November 1. Call 1-555-536-4400." }
+    };
+
+    window.addEventListener("sq:formsubmit", function () {
+      var size = parseInt(val("householdSize"), 10) || 1;
+      var income = parseFloat(val("monthlyIncome")) || 0;
+      var guide = 1305 + 460 * (size - 1);
+      var pct = income / guide * 100;
+      var kids = val("hasChildren") === "yes";
+      var preg = val("pregnant") === "yes";
+      var senior = val("seniorDisabled") === "yes";
+      var young = kids && (val("youngestAge") === "under1" || val("youngestAge") === "1-4");
+      var care = kids && val("needsChildCare") === "yes";
+      var util = val("paysUtilities") === "yes";
+
+      var q = [];
+      if (pct <= 130) q.push("snap");
+      if (pct <= 138 || (preg && pct <= 200) || (senior && pct <= 150)) q.push("medicaid");
+      if ((preg || young) && pct <= 185) q.push("wic");
+      if (kids && pct <= 50) q.push("tanf");
+      if (care && pct <= 200) q.push("childcare");
+      if (util && pct <= 150) q.push("liheap");
+
+      var yes = document.getElementById("el-results-yes"), no = document.getElementById("el-results-no");
+      if (q.length) {
+        yes.hidden = false; no.hidden = true;
+        document.getElementById("el-count").textContent = q.length === 1 ? "1 program" : q.length + " programs";
+        document.getElementById("el-results-list").innerHTML = q.map(function (k) {
+          var p = PROGRAMS[k];
+          return "<li><strong>" + p.name + "</strong><span>" + p.why + "</span>" + (p.note ? '<span class="el-note">' + p.note + "</span>" : "") + "</li>";
+        }).join("");
+        var applyable = q.filter(function (k) { return PROGRAMS[k].apply; });
+        document.getElementById("el-apply-btn").href = "apply.html" + (applyable.length ? "?programs=" + applyable.join(",") : "");
+      } else {
+        yes.hidden = true; no.hidden = false;
+      }
+      SQ.data.merge({
+        householdSize: size, hasChildren: kids ? "yes" : "no", monthlyIncome: income,
+        incomePctGuideline: Math.round(pct), screenerPrograms: q.join(","), screenerProgramsCount: q.length,
+        screenerApplyClicked: false
+      }, { refresh: true });
+      SQ.emit("sq:screenerresult", { programs: q, pct: Math.round(pct) });
+    });
+
+    document.getElementById("el-apply-btn").addEventListener("click", function () { SQ.data.set("screenerApplyClicked", true); });
+  })();
+  </script>
+</body>
+</html>

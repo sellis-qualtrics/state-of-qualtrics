@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="assets/img/seal.png">
+  <link rel="stylesheet" href="assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "portal", pageType: "search", pageName: "Search Results" };
+  </script>
+  <script src="assets/js/sq-datalayer.js"></script>
+  <script src="assets/js/qualtrics-dx.js"></script>
+  <style>
+    .sq-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; padding: 0; list-style: none; }
+    .sq-filters button { font: inherit; font-weight: 600; font-size: .9375rem; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--sq-gray-50); background: #fff; color: var(--sq-navy); cursor: pointer; }
+    .sq-filters button[aria-pressed="true"] { background: var(--sq-navy); border-color: var(--sq-navy); color: #fff; }
+    .sq-filters .sq-filter-count { font-weight: 400; opacity: .8; }
+    .sq-results { list-style: none; padding: 0; margin: 0; }
+    .sq-result { padding: 20px 0; border-bottom: 1px solid var(--sq-gray-10); max-width: 760px; }
+    .sq-result h3 { margin: 6px 0 4px; font-size: 1.25rem; }
+    .sq-result p { margin: 0 0 4px; color: var(--sq-gray-70); }
+    .sq-result__url { font-size: .875rem; color: var(--sq-green-dark); word-break: break-all; }
+    .sq-result mark { background: var(--sq-cream); padding: 0 2px; }
+    .sq-search-status { color: var(--sq-gray-70); margin: 16px 0; min-height: 1.5em; }
+    .sq-page-search { display: flex; max-width: 640px; margin-top: 16px; }
+    .sq-page-search input { flex: 1; border: 1px solid var(--sq-gray-50); border-right: 0; border-radius: 4px 0 0 4px; padding: 12px 14px; font: inherit; font-size: 1.125rem; min-width: 0; }
+    .sq-page-search button { border-radius: 0 4px 4px 0; }
+    #sq-search-feedback:empty { display: none; }
+  </style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Search</h1>
+        <form class="sq-page-search" role="search" id="sq-page-search-form" action="search.html" method="get">
+          <label for="sq-page-q" class="sq-visually-hidden">Search the State of Qualtrics</label>
+          <input id="sq-page-q" name="q" type="search" placeholder="Search services, forms, agencies" autocomplete="off">
+          <button class="sq-btn" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="sq-container">
+      <div role="group" aria-label="Filter results by agency">
+        <ul class="sq-filters" id="sq-search-filters"></ul>
+      </div>
+
+      <p class="sq-search-status" id="sq-search-status" aria-live="polite"></p>
+
+      <div id="sq-search-results" data-count="">
+        <ol class="sq-results" id="sq-results-list"></ol>
+      </div>
+
+      <!-- Zero-results state -->
+      <section id="sq-search-noresults" hidden aria-labelledby="noresults-title">
+        <div class="sq-alert sq-alert--warning">
+          <p class="sq-alert__heading" id="noresults-title">No results for "<span id="sq-noresults-term"></span>"</p>
+          <p>We couldn't find a page that matches your search.</p>
+        </div>
+        <div class="sq-grid sq-grid--2">
+          <div>
+            <h2 style="font-size:1.5rem">Search tips</h2>
+            <ul>
+              <li>Check your spelling.</li>
+              <li>Try fewer or more general words, like "license" instead of "license replacement form."</li>
+              <li>Try the name of the agency that offers the service.</li>
+            </ul>
+          </div>
+          <div>
+            <h2 style="font-size:1.5rem">Popular searches</h2>
+            <ul>
+              <li><a href="search.html?q=renew+license">Renew a driver license</a></li>
+              <li><a href="search.html?q=refund">Tax refund status</a></li>
+              <li><a href="search.html?q=snap">SNAP food benefits</a></li>
+              <li><a href="search.html?q=unemployment">Unemployment benefits</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Qualtrics Q3: embedded "search failure" creative can target this element -->
+        <div id="sq-search-feedback"></div>
+        <p style="margin-top:24px">Still can't find it? <a href="contact.html">Contact us</a> or browse the <a href="agencies.html">agency directory</a>.</p>
+      </section>
+
+      <div id="sq-page-feedback"></div>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script src="assets/js/sq-components.js"></script>
+  <script src="assets/js/sq-friction.js"></script>
+  <script src="assets/js/sq-search-index.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var INDEX = window.SQ_SEARCH_INDEX || [];
+    var FILTERS = [["all", "All"], ["dmv", "Motor Vehicles"], ["revenue", "Revenue"], ["hhs", "Health & Human Services"], ["labor", "Labor"], ["portal", "General"], ["other", "Other agencies"]];
+    var AGENCY_LABEL = { portal: "State of Qualtrics", dmv: "Motor Vehicles", revenue: "Revenue", hhs: "Health & Human Services", labor: "Labor & Workforce", other: "Other agencies" };
+
+    var form = document.getElementById("sq-page-search-form");
+    var input = document.getElementById("sq-page-q");
+    var status = document.getElementById("sq-search-status");
+    var list = document.getElementById("sq-results-list");
+    var wrap = document.getElementById("sq-search-results");
+    var none = document.getElementById("sq-search-noresults");
+    var filtersEl = document.getElementById("sq-search-filters");
+
+    var state = { term: "", filter: "all", matches: [] };
+    var runId = 0;
+
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+    function tokens(s) { return s.toLowerCase().replace(/[^a-z0-9'\s-]/g, " ").split(/\s+/).filter(Boolean); }
+
+    // AND match: every query word must prefix-match a word in the entry
+    function search(term) {
+      var q = tokens(term).map(function (t) { return t.replace(/'/g, ""); });
+      if (!q.length) return [];
+      return INDEX.map(function (e) {
+        var words = tokens(e.title + " " + e.keywords + " " + e.desc).map(function (w) { return w.replace(/'/g, ""); });
+        var titleWords = tokens(e.title).map(function (w) { return w.replace(/'/g, ""); });
+        var score = 0;
+        for (var i = 0; i < q.length; i++) {
+          var hit = words.some(function (w) { return w.indexOf(q[i]) === 0; });
+          if (!hit) return null;
+          if (titleWords.some(function (w) { return w.indexOf(q[i]) === 0; })) score += 3; else score += 1;
+        }
+        return { e: e, score: score };
+      }).filter(Boolean).sort(function (a, b) { return b.score - a.score; }).map(function (r) { return r.e; });
+    }
+
+    function highlight(text, term) {
+      var out = esc(text);
+      tokens(term).forEach(function (t) {
+        if (t.length < 2) return;
+        out = out.replace(new RegExp("\\b(" + t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[a-z]*)", "gi"), "<mark>$1</mark>");
+      });
+      return out;
+    }
+
+    function renderFilters() {
+      filtersEl.innerHTML = FILTERS.map(function (f) {
+        var n = f[0] === "all" ? state.matches.length : state.matches.filter(function (m) { return m.agency === f[0]; }).length;
+        if (f[0] !== "all" && n === 0) return "";
+        return '<li><button type="button" data-filter="' + f[0] + '" aria-pressed="' + (state.filter === f[0]) + '">' + esc(f[1]) + ' <span class="sq-filter-count">(' + n + ")</span></button></li>";
+      }).join("");
+      filtersEl.parentElement.hidden = !state.matches.length;
+    }
+
+    function render() {
+      var shown = state.filter === "all" ? state.matches : state.matches.filter(function (m) { return m.agency === state.filter; });
+      renderFilters();
+      wrap.setAttribute("data-count", String(shown.length));
+      if (!state.term) {
+        status.textContent = "Enter a search term to find services, forms, and agencies.";
+        list.innerHTML = ""; none.hidden = true; return;
+      }
+      if (!shown.length) {
+        status.textContent = "";
+        list.innerHTML = "";
+        document.getElementById("sq-noresults-term").textContent = state.term;
+        none.hidden = false;
+      } else {
+        none.hidden = true;
+        status.innerHTML = "<strong>" + shown.length + "</strong> result" + (shown.length === 1 ? "" : "s") + ' for "<strong>' + esc(state.term) + '</strong>"';
+        list.innerHTML = shown.map(function (e, i) {
+          return '<li class="sq-result" data-rank="' + (i + 1) + '">' +
+            '<span class="sq-tag">' + esc(AGENCY_LABEL[e.agency] || e.agency) + "</span>" +
+            '<h3><a href="' + e.url + '" data-sq-result="' + (i + 1) + '">' + highlight(e.title, state.term) + "</a></h3>" +
+            "<p>" + highlight(e.desc, state.term) + "</p>" +
+            '<span class="sq-result__url">qualtrics.state.example/' + esc(e.url) + "</span></li>";
+        }).join("");
+      }
+      SQ.data.merge({ searchTerm: state.term, searchResultsCount: shown.length, searchFilter: state.filter }, { refresh: true });
+      SQ.emit("sq:search", { term: state.term, count: shown.length, filter: state.filter });
+    }
+
+    function run(term) {
+      var id = ++runId;
+      state.term = term.trim();
+      state.filter = "all";
+      input.value = state.term;
+      var headerInput = document.getElementById("sq-search-input");
+      if (headerInput) headerInput.value = state.term;
+      if (!state.term) { state.matches = []; render(); return; }
+      list.innerHTML = ""; none.hidden = true; filtersEl.parentElement.hidden = true;
+      // F4: slow search. Plain text, no spinner, while friction is ON.
+      status.innerHTML = SQ.friction.on ? "Searching…" : '<span class="sq-loading"><span class="sq-spinner"></span> Searching…</span>';
+      SQ.friction.wait(3000, 300).then(function () {
+        if (id !== runId) return;
+        state.matches = search(state.term);
+        render();
+      });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var t = input.value;
+      history.pushState(null, "", "search.html?q=" + encodeURIComponent(t).replace(/%20/g, "+"));
+      run(t);
+    });
+    // Header search on this page searches in place
+    var hForm = document.getElementById("sq-header-search");
+    if (hForm) hForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var t = document.getElementById("sq-search-input").value;
+      history.pushState(null, "", "search.html?q=" + encodeURIComponent(t).replace(/%20/g, "+"));
+      run(t);
+    });
+    filtersEl.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-filter]");
+      if (!b) return;
+      state.filter = b.getAttribute("data-filter");
+      render();
+    });
+    window.addEventListener("popstate", function () { run(new URLSearchParams(location.search).get("q") || ""); });
+    list.addEventListener("click", function (e) {
+      var a = e.target.closest("[data-sq-result]");
+      if (a) SQ.emit("sq:searchclick", { term: state.term, rank: +a.getAttribute("data-sq-result"), url: a.getAttribute("href") });
+    });
+
+    run(new URLSearchParams(location.search).get("q") || "");
+  })();
+  </script>
+</body>
+</html>

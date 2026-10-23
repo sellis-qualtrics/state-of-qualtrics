@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weekly Certification | Labor | State of Qualtrics</title>
+  <link rel="icon" type="image/png" href="../assets/img/seal.png">
+  <link rel="stylesheet" href="../assets/css/sq.css">
+  <script>
+    window.sqPage = { agency: "labor", pageType: "form", pageName: "Weekly Certification", formName: "weekly-certification" };
+  </script>
+  <script src="../assets/js/sq-datalayer.js"></script>
+  <script src="../assets/js/qualtrics-dx.js"></script>
+  <style>.sq-row { display: flex; gap: 16px; flex-wrap: wrap; }</style>
+</head>
+<body>
+  <a class="sq-skip" href="#main">Skip to main content</a>
+  <div id="sq-header"></div>
+
+  <main id="main" class="sq-main">
+    <div class="sq-page-header">
+      <div class="sq-container">
+        <div id="sq-breadcrumbs"></div>
+        <h1>Weekly certification</h1>
+        <p class="sq-lead">Request your unemployment payment for last week. Certify every week, even while you wait for a decision.</p>
+      </div>
+    </div>
+
+    <div class="sq-container sq-layout">
+      <div>
+        <form class="sq-form" data-form-name="weekly-certification" data-cancel-href="index.html" data-submit-label="Submit certification" data-confirmation-prefix="SQ-WC" novalidate>
+
+          <!-- Step 1: This week -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="This week">
+            <legend>Tell us about the week</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="wc-week">Week ending <span class="sq-required">*</span></label>
+              <select class="sq-select sq-input--md" id="wc-week" name="weekEnding" required data-required-error="Choose the week you're certifying for"></select>
+            </div>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Were you able to work and available for work every day? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="wc-able-yes"><input type="radio" id="wc-able-yes" name="ableAvailable" value="yes" required data-error="Answer the able-and-available question"> <span>Yes</span></label>
+              <label class="sq-choice" for="wc-able-no"><input type="radio" id="wc-able-no" name="ableAvailable" value="no"> <span>No</span></label>
+            </fieldset>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Did you do any work this week, including part-time or gig work? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="wc-work-no"><input type="radio" id="wc-work-no" name="worked" value="no" required data-error="Tell us if you worked"> <span>No</span></label>
+              <label class="sq-choice" for="wc-work-yes"><input type="radio" id="wc-work-yes" name="worked" value="yes"> <span>Yes</span></label>
+            </fieldset>
+            <div class="sq-row" data-sq-show-if="worked=yes" hidden>
+              <div class="sq-field">
+                <label class="sq-label" for="wc-hours">Hours worked <span class="sq-required">*</span></label>
+                <input class="sq-input sq-input--sm" id="wc-hours" name="hours" type="number" min="1" max="80" required data-error="Enter hours from 1 to 80">
+              </div>
+              <div class="sq-field">
+                <label class="sq-label" for="wc-earn">Gross earnings (USD) <span class="sq-required">*</span></label>
+                <span class="sq-hint">Before taxes, for work done this week, even if you haven't been paid yet.</span>
+                <input class="sq-input sq-input--md" id="wc-earn" name="earnings" type="number" min="0" step="0.01" required data-error="Enter a dollar amount, like 180">
+              </div>
+            </div>
+            <fieldset class="sq-field sq-fieldset">
+              <legend class="sq-label" style="font-family:inherit;font-size:1rem;margin-bottom:8px">Did you refuse any job offers this week? <span class="sq-required">*</span></legend>
+              <label class="sq-choice" for="wc-ref-no"><input type="radio" id="wc-ref-no" name="refusedWork" value="no" required data-error="Answer the job offer question"> <span>No</span></label>
+              <label class="sq-choice" for="wc-ref-yes"><input type="radio" id="wc-ref-yes" name="refusedWork" value="yes"> <span>Yes</span></label>
+            </fieldset>
+            <div class="sq-alert sq-alert--warning" data-sq-show-if="ableAvailable=no" hidden>
+              <p>If you weren't able or available to work, your payment for this week may be reduced or denied. A specialist may contact you.</p>
+            </div>
+            <div class="sq-alert sq-alert--warning" data-sq-show-if="refusedWork=yes" hidden>
+              <p>Refusing suitable work can affect your benefits. A specialist will contact you for details.</p>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: Work search -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Work search">
+            <legend>Your job search</legend>
+            <div class="sq-field">
+              <label class="sq-label" for="wc-contacts">How many employers did you contact this week? <span class="sq-required">*</span></label>
+              <span class="sq-hint">Applications, interviews, job fairs, and Workforce Center appointments all count.</span>
+              <select class="sq-select sq-input--sm" id="wc-contacts" name="contacts" required data-required-error="Choose the number of contacts">
+                <option value="">-</option>
+                <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+              </select>
+            </div>
+            <div class="sq-alert sq-alert--warning" data-sq-show-if="contacts=0|1|2" data-sq-stop="work-search-incomplete" hidden>
+              <p class="sq-alert__heading">You need at least 3 job contacts</p>
+              <p>To get paid for this week, you must contact at least 3 employers. If you have a good reason you couldn't, call 1-555-562-7000.</p>
+            </div>
+            <div class="sq-field" data-sq-show-if="contacts=3|4|5|6|7|8|9|10" hidden>
+              <label class="sq-label" for="wc-log">List your contacts <span class="sq-required">*</span></label>
+              <span class="sq-hint">One per line: employer, job title, and how you applied. For example: "Lakeside Medical, patient registrar, online"</span>
+              <textarea class="sq-textarea" id="wc-log" name="contactLog" required data-required-error="List your job contacts"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Step 3: Review -->
+          <fieldset class="sq-fieldset" data-sq-step data-step-name="Review &amp; certify">
+            <legend>Review and certify</legend>
+            <div data-sq-review></div>
+            <div class="sq-field">
+              <label class="sq-choice" for="wc-certify"><input type="checkbox" id="wc-certify" name="certify" required data-required-error="You must certify to submit"> <span>I certify that my answers are true for the week I'm claiming.</span></label>
+            </div>
+          </fieldset>
+
+          <div data-sq-confirmation hidden>
+            <div class="sq-confirm">
+              <h2>Your certification was submitted</h2>
+              <p>Confirmation number</p>
+              <p><span class="sq-confirm__number" data-sq-confirmation-number></span></p>
+              <p>Estimated payment: <strong id="wc-conf-pay"></strong></p>
+              <p id="wc-conf-note">Payments usually arrive in 2–3 business days.</p>
+              <div class="sq-btn-group">
+                <a class="sq-btn" href="index.html">Back to Labor home</a>
+                <a class="sq-btn sq-btn--outline" href="jobs.html">Find jobs</a>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div id="sq-page-feedback"></div>
+      </div>
+
+      <aside class="sq-sidebar" aria-label="Certification help">
+        <div class="sq-card sq-card--blue">
+          <h3>Certify on time</h3>
+          <p>Certify between Sunday and Friday for the week that just ended. Late certifications can delay your payment.</p>
+          <p style="margin-top:8px">Need job contacts? <a href="jobs.html">Search open jobs</a>.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="sq-footer"></div>
+  <script>
+    // Week-ending options: the last 2 Saturdays (built before the form engine starts)
+    (function () {
+      var sel = document.getElementById("wc-week");
+      var d = new Date(); d.setDate(d.getDate() - ((d.getDay() + 1) % 7 || 7));
+      var html = '<option value="">- Select -</option>';
+      for (var i = 0; i < 2; i++) {
+        var label = d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+        html += '<option value="' + d.toISOString().slice(0, 10) + '">' + label + "</option>";
+        d.setDate(d.getDate() - 7);
+      }
+      sel.innerHTML = html;
+    })();
+  </script>
+  <script src="../assets/js/sq-components.js"></script>
+  <script src="../assets/js/sq-friction.js"></script>
+  <script src="../assets/js/sq-forms.js"></script>
+  <script>
+  (function () {
+    var form = document.querySelector('form[data-form-name="weekly-certification"]');
+    var WBA = 412;
+    function calc() {
+      var worked = (form.querySelector('input[name="worked"]:checked') || {}).value === "yes";
+      var earn = worked ? (parseFloat(document.getElementById("wc-earn").value) || 0) : 0;
+      return { worked: worked, earn: earn, pay: Math.max(0, Math.round(WBA - Math.max(0, earn - 100))) };
+    }
+    form.addEventListener("change", function (e) {
+      var c = calc();
+      if (e.target.name === "worked" || e.target.name === "earnings") SQ.data.merge({ certWorked: c.worked ? "yes" : "no", certEarnings: c.earn });
+      if (e.target.name === "contacts") SQ.data.set("certContacts", parseInt(e.target.value, 10) || 0);
+    });
+    window.addEventListener("sq:formsubmit", function () {
+      var c = calc();
+      var able = (form.querySelector('input[name="ableAvailable"]:checked') || {}).value === "yes";
+      var refused = (form.querySelector('input[name="refusedWork"]:checked') || {}).value === "yes";
+      document.getElementById("wc-conf-pay").textContent = "$" + c.pay.toFixed(2) + (c.worked ? " (reduced for earnings of $" + c.earn.toFixed(2) + ")" : "");
+      if (!able || refused) document.getElementById("wc-conf-note").textContent = "Your payment is on hold until a specialist reviews your answers. We'll contact you within 5 business days.";
+      SQ.data.merge({ paymentEstimate: c.pay, certWorked: c.worked ? "yes" : "no", certEarnings: c.earn });
+    });
+  })();
+  </script>
+</body>
+</html>
