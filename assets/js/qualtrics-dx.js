@@ -59,24 +59,83 @@ try{(new g("https://zn2wugdyrudvhgffw-qdemo.siteintercept.qualtrics.com/SIE/?Q_Z
     if (document.body) make(); else document.addEventListener("DOMContentLoaded", make);
   }
 
-  var timer = null;
-  SQ.dx = {
-    isLoaded: function () { return !!(window.QSI && window.QSI.API); },
+  // ---------- Safe intercept re-evaluation ----------
+  // Rules that keep intercepts stable:
+  //  1. Never re-evaluate until Qualtrics has finished its own first load + run (ready + grace period).
+  //  2. Never re-evaluate while a Qualtrics survey is open on screen (unload would close it and
+  //     can leave creatives removed). Wait until it's closed, then re-evaluate once.
+  //  3. Never overlap: one unload → load → run cycle at a time; extra requests are merged.
+  var log = function () { if (SQ.log) SQ.log.apply(null, arguments); };
+  var ready = false, busy = false, pending = null, timer = null;
+  var GRACE_MS = 2000, DEBOUNCE_MS = 600, SURVEY_RECHECK_MS = 2000;
 
-    // Re-evaluate intercepts after in-page state changes (debounced).
+  function qsiPresent() { return !!(window.QSI && window.QSI.API && typeof window.QSI.API.load === "function"); }
+
+  var readyScheduled = false;
+  function markReady(source) {
+    if (ready || readyScheduled) return;
+    readyScheduled = true;
+    setTimeout(function () { ready = true; log("dx ready (" + source + ")"); if (pending) schedule(0); }, GRACE_MS);
+  }
+  window.addEventListener("qsi_js_loaded", function () { markReady("qsi_js_loaded"); });
+  // Fallback if the event isn't fired: poll for the API for up to 30 s
+  (function poll(n) {
+    if (ready) return;
+    if (qsiPresent()) { markReady("poll"); return; }
+    if (n < 120) setTimeout(function () { poll(n + 1); }, 250);
+  })(0);
+
+  // Is a Qualtrics survey currently visible (responsive dialog, feedback button panel, embedded feedback)?
+  function surveyOpen() {
+    var frames = document.querySelectorAll("iframe");
+    for (var i = 0; i < frames.length; i++) {
+      var f = frames[i], src = f.getAttribute("src") || "";
+      if (src.indexOf("qualtrics.com") === -1) continue;
+      var r = f.getBoundingClientRect();
+      if (r.width > 40 && r.height > 40 && getComputedStyle(f).visibility !== "hidden") return true;
+    }
+    return false;
+  }
+
+  function schedule(ms) {
+    clearTimeout(timer);
+    timer = setTimeout(cycle, ms);
+  }
+
+  function cycle() {
+    if (!pending) return;
+    if (!ready || !qsiPresent()) { log("dx.refresh waiting (Qualtrics not ready)", pending); return; } // markReady re-schedules
+    if (busy) { schedule(300); return; }
+    if (surveyOpen()) { log("dx.refresh deferred (survey open)", pending); schedule(SURVEY_RECHECK_MS); return; }
+
+    var reason = pending; pending = null; busy = true;
+    var done = function () { busy = false; if (pending) schedule(DEBOUNCE_MS); };
+    var safety = setTimeout(done, 6000);
+    try {
+      log("dx.refresh →", reason);
+      window.QSI.API.unload();
+      setTimeout(function () {
+        try {
+          var p = window.QSI.API.load();
+          var finish = function () { try { window.QSI.API.run(); } catch (e) {} clearTimeout(safety); done(); };
+          if (p && typeof p.then === "function") p.then(finish, function () { clearTimeout(safety); done(); });
+          else finish();
+        } catch (e) { clearTimeout(safety); done(); if (window.console) console.warn("[SQ] dx load failed", e); }
+      }, 150);
+    } catch (e) { clearTimeout(safety); done(); if (window.console) console.warn("[SQ] dx.refresh failed", e); }
+  }
+
+  SQ.dx = {
+    isLoaded: qsiPresent,
+    isReady: function () { return ready; },
+    isSurveyOpen: surveyOpen,
+    // Ask for intercepts to be re-evaluated after an in-page state change.
     refresh: function (reason) {
       if (!cfg.refreshOnStateChange) return;
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        if (!SQ.dx.isLoaded()) { SQ.log && SQ.log("dx.refresh skipped (QSI not loaded)", reason || ""); return; }
-        try {
-          SQ.log && SQ.log("dx.refresh →", reason || "");
-          window.QSI.API.unload();
-          var p = window.QSI.API.load();
-          if (p && typeof p.then === "function") p.then(function () { window.QSI.API.run(); });
-          else window.QSI.API.run();
-        } catch (e) { if (window.console) console.warn("[SQ] dx.refresh failed", e); }
-      }, 250);
+      // Changes made before Qualtrics loads are already included in its first evaluation
+      if (!qsiPresent()) { log("dx.refresh ignored (Qualtrics not loaded yet)", reason || ""); return; }
+      pending = (pending ? pending + "," : "") + (reason || "change");
+      schedule(DEBOUNCE_MS);
     }
   };
 })();
