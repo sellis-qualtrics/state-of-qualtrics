@@ -225,11 +225,15 @@
     p.className = "sq-democtl"; p.id = "sq-democtl";
     p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "Demo controls");
     var fOn = window.sqDataLayer.frictionMode === "on";
+    var vMode = window.sqDataLayer.validationMode;
+    var vNext = { light: "full", full: "off", off: "light" }[vMode] || "light";
+    var vLabel = { light: "Light", full: "Full", off: "Off" };
     p.innerHTML =
       "<h2>Demo controls</h2>" +
-      "<p style=\"margin:0 0 8px\">Friction: <strong>" + (fOn ? "ON" : "OFF") + "</strong> · Qualtrics: <strong>" + (SQ.dx && SQ.dx.isLoaded() ? "loaded" : "not loaded") + "</strong></p>" +
+      "<p style=\"margin:0 0 8px\">Friction: <strong>" + (fOn ? "ON" : "OFF") + "</strong> · Validation: <strong>" + (vLabel[vMode] || vMode) + "</strong> · Qualtrics: <strong>" + (SQ.dx && SQ.dx.isLoaded() ? "loaded" : "not loaded") + "</strong></p>" +
       '<div class="sq-btn-group">' +
         '<button type="button" class="sq-btn" data-ctl="friction">' + (fOn ? "Turn friction off" : "Turn friction on") + "</button>" +
+        '<button type="button" class="sq-btn sq-btn--secondary" data-ctl="validation">' + ("Validation: switch to " + vLabel[vNext]) + "</button>" +
         '<button type="button" class="sq-btn sq-btn--outline" data-ctl="reset">Reset session</button>' +
       "</div>" +
       "<pre id=\"sq-democtl-dl\"></pre>" +
@@ -242,6 +246,7 @@
     p.addEventListener("click", function (e) {
       var c = e.target.getAttribute("data-ctl");
       if (c === "friction") { SQ.session.set("sqFriction", fOn ? "off" : "on"); window.location.reload(); }
+      if (c === "validation") { SQ.session.set("sqValidation", vNext); window.location.reload(); }
       if (c === "reset") { try { sessionStorage.clear(); } catch (x) {} window.location.reload(); }
       if (c === "close") p.remove();
     });

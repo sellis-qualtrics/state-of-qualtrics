@@ -185,7 +185,11 @@
     var steps = this.steps();
     if (!this.validate(steps[this.index])) return;
     // Stop panels: a visible [data-sq-stop] blocks progress (e.g. ineligible, missing time slot)
-    var stop = [].filter.call(steps[this.index].querySelectorAll("[data-sq-stop]"), function (el) { return !el.closest("[hidden]"); })[0];
+    // With validation off, only stops the resident chose (conditional ones, e.g. "expired more than 1 year") still block
+    var vOff = window.sqDataLayer.validationMode === "off";
+    var stop = [].filter.call(steps[this.index].querySelectorAll("[data-sq-stop]"), function (el) {
+      return !el.closest("[hidden]") && !(vOff && !el.closest("[data-sq-show-if]"));
+    })[0];
     if (stop) {
       var reason = stop.getAttribute("data-sq-stop");
       stop.classList.add("sq-alert--error", "is-blocking");
@@ -208,6 +212,10 @@
   };
 
   SQForm.prototype.validate = function (step) {
+    // ?validation=off: skip all required/format checks so demos can click straight through
+    if (window.sqDataLayer.validationMode === "off") { this.clearErrors(step); return true; }
+    // light (default): blank fields pass, except intercept-trigger fields (F3), which keep full validation
+    var light = window.sqDataLayer.validationMode === "light";
     this.clearErrors(step);
     var errors = [], seenRadio = {};
     var inputs = [].slice.call(step.querySelectorAll("input,select,textarea")).filter(function (el) {
@@ -221,11 +229,14 @@
         var group = step.querySelectorAll('input[type="radio"][name="' + el.name + '"]');
         var required = [].some.call(group, function (r) { return r.required; });
         var checked = [].some.call(group, function (r) { return r.checked; });
-        if (required && !checked) errors.push({ el: group[0], msg: el.getAttribute("data-error") || "Select an option" });
+        if (required && !checked && !light) errors.push({ el: group[0], msg: el.getAttribute("data-error") || "Select an option" });
         return;
       }
       if (!el.checkValidity()) {
         var isF3 = el.getAttribute("data-sq-friction") === "F3";
+        if (light && !isF3 && el.validity.valueMissing) return;
+        // Friction OFF = smooth demo path: F3 fields accept any non-empty value (format rule skipped)
+        if (isF3 && !frictionOn && !el.validity.valueMissing) return;
         var msg;
         if (isF3 && frictionOn) msg = "Invalid entry";
         else if (el.validity.valueMissing) msg = el.getAttribute("data-required-error") || "This field is required";
@@ -237,7 +248,7 @@
 
     // Checkbox groups: [data-sq-require-one="Error message"] needs at least one checked box
     [].forEach.call(step.querySelectorAll("[data-sq-require-one]"), function (grp) {
-      if (grp.closest("[hidden]")) return;
+      if (grp.closest("[hidden]") || light) return;
       var boxes = [].filter.call(grp.querySelectorAll('input[type="checkbox"]'), function (b) { return !b.disabled; });
       if (boxes.length && !boxes.some(function (b) { return b.checked; })) {
         errors.push({ el: boxes[0], msg: grp.getAttribute("data-sq-require-one") || "Select at least one option" });

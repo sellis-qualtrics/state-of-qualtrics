@@ -41,6 +41,16 @@
   if (fParam === "on" || fParam === "off") ssSet("sqFriction", fParam);
   var frictionMode = ssGet("sqFriction") || "on";
 
+  // Validation mode (?validation=light|full|off, persists for the session):
+  //   light (default): blank fields are allowed EXCEPT intercept-trigger fields (data-sq-friction="F3")
+  //   full: every required field and format rule is enforced
+  //   off: no checks at all, and automatic blocks (no time slot, no document) are skipped
+  var vParam = params.get("validation");
+  if (vParam === "on") vParam = "full";
+  if (vParam === "light" || vParam === "full" || vParam === "off") ssSet("sqValidation", vParam);
+  var validationMode = ssGet("sqValidation") || "light";
+  if (validationMode === "on") validationMode = "full";
+
   // ---------- Session counters ----------
   var views = parseInt(ssGet("sqPageViews") || "0", 10) + 1;
   ssSet("sqPageViews", String(views));
@@ -83,6 +93,7 @@
     entryPage: ssGet("sqEntryPage"),
     deviceType: deviceType(),
     frictionMode: frictionMode,
+    validationMode: validationMode,
     language: document.documentElement.lang || "en",
     pagePath: window.location.pathname
   };
