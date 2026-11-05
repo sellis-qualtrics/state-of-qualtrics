@@ -123,6 +123,19 @@
       return /^[0-9]+$/.test(v) ? parseInt(v, 10) : null;
     }
     function validate() {
+      // ?validation=off: fill blanks with demo defaults (approved result) and skip checks
+      if (window.sqDataLayer.validationMode === "light") {
+        // light (default): fill blank SSN / year with demo values; the amount (intercept trigger) is still validated
+        if (!ssn.value.trim()) ssn.value = "1234";
+        if (!year.value) year.value = "2025";
+      }
+      if (window.sqDataLayer.validationMode === "off") {
+        clear();
+        if (!/^[0-9]{4}$/.test(ssn.value.trim())) ssn.value = "1234";
+        if (!year.value) year.value = "2025";
+        if (parseAmount(amt.value) === null) amt.value = "1250";
+        return true;
+      }
       clear();
       var errors = [];
       if (!/^[0-9]{4}$/.test(ssn.value.trim())) errors.push(err(ssn, "Enter exactly 4 numbers"));
