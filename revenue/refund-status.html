@@ -150,7 +150,7 @@
           errors.map(function (e) { return '<li><a href="#' + e.el.id + '">' + document.querySelector('label[for="' + e.el.id + '"]').textContent.replace("*", "").trim() + ": " + e.msg + "</a></li>"; }).join("") + "</ul></div>";
         summary.firstChild.focus();
         result.hidden = true;
-        SQ.data.set("errorCount", (window.sqDataLayer.errorCount || 0) + errors.length, { refresh: true });
+        SQ.data.set("errorCount", (window.sqDataLayer.errorCount || 0) + errors.length);
         return false;
       }
       return true;
