@@ -68,13 +68,9 @@
     });
     this.applyConditions();
 
-    // Browser back/forward via hash
-    window.addEventListener("hashchange", function () {
-      var m = location.hash.match(/^#step-(\d+)$/);
-      if (!m) return;
-      var target = parseInt(m[1], 10) - 1;
-      if (target !== self.index && target <= self.maxReached) self.go(target, true);
-    });
+    // Steps no longer change the URL (no #step-N), so session replay counts the whole form as ONE page.
+    this.blockedReported = {};
+    this.errorThresholdReported = false;
 
     // Abandonment
     window.addEventListener("pagehide", function () {
@@ -150,22 +146,14 @@
     if (steps[i].querySelector("[data-sq-review]")) this.renderReview(steps[i].querySelector("[data-sq-review]"));
     this.renderIndicator();
 
-    var hash = "#step-" + (i + 1);
-    var onStepHash = !location.hash || /^#step-\d+$/.test(location.hash);
-    if (location.hash !== hash) {
-      // On first load, keep any non-step anchor (e.g. #accessibility) so in-page links still work
-      if (silentHash && i === 0) { if (onStepHash) history.replaceState(null, "", hash); }
-      else history.pushState(null, "", hash);
-    }
-
     SQ.data.merge({
       formName: this.name,
       formStep: i + 1,
       formStepName: steps[i].getAttribute("data-step-name") || "",
       formTotalSteps: steps.length
     });
+    // Step changes are tracked with custom events (sq-<form>-step-<n>), not intercept re-checks
     SQ.emit("sq:formstep", { form: this.name, step: i + 1, name: steps[i].getAttribute("data-step-name") });
-    if (SQ.dx) SQ.dx.refresh("formStep");
 
     if (!silentHash) {
       var top = this.form.getBoundingClientRect().top + window.scrollY - 16;
@@ -196,7 +184,7 @@
       stop.setAttribute("role", "alert"); stop.setAttribute("tabindex", "-1"); stop.focus();
       SQ.data.set("formBlockedReason", reason);
       SQ.emit("sq:formblocked", { form: this.name, step: this.index + 1, reason: reason });
-      if (SQ.dx) SQ.dx.refresh("formBlocked");
+      if (SQ.dx && !this.blockedReported[reason]) { this.blockedReported[reason] = true; SQ.dx.refresh("formBlocked"); }
       return;
     }
     if (this.status === "not-started") this.setStatus("in-progress");
@@ -286,9 +274,11 @@
     if (legend && legend.nextSibling) step.insertBefore(summary, legend.nextSibling); else step.insertBefore(summary, step.firstChild);
     summary.focus();
 
-    SQ.data.set("errorCount", (window.sqDataLayer.errorCount || 0) + errors.length);
+    var total = (window.sqDataLayer.errorCount || 0) + errors.length;
+    SQ.data.set("errorCount", total);
     SQ.emit("sq:formerror", { form: this.name, step: this.index + 1, count: errors.length, fields: errors.map(function (e) { return e.el.name || e.el.id; }) });
-    if (SQ.dx) SQ.dx.refresh("errorCount");
+    // Re-check intercepts once, when errors first reach the "need help" threshold (2)
+    if (SQ.dx && total >= 2 && !this.errorThresholdReported) { this.errorThresholdReported = true; SQ.dx.refresh("errorCount"); }
     return false;
   };
 
@@ -335,7 +325,6 @@
       this.confirmation.hidden = false;
       [].forEach.call(this.confirmation.querySelectorAll("[data-sq-confirmation-number]"), function (n) { n.textContent = num; });
     }
-    history.replaceState(null, "", "#confirmation");
     SQ.session.remove("sqLastAbandonedForm"); SQ.session.remove("sqLastAbandonedStep");
     this.status = "submitted";
     SQ.data.merge({ formStatus: "submitted", pageType: "confirmation", confirmationNumber: num });

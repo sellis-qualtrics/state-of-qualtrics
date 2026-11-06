@@ -13,8 +13,12 @@ window.SQ_DX_CONFIG = {
   // put that ID here (e.g. "ZN_abc123XYZ") and this file will create the div for you.
   zoneDivId: "ZN_2wugdyRUDVHGFFW",
 
-  // Re-run intercept evaluation when form steps, errors, or search results change.
-  refreshOnStateChange: true
+  // Re-run intercept evaluation when key page state changes (no page reload).
+  refreshOnStateChange: true,
+
+  // Only these changes trigger a re-check. Each re-check reloads the Qualtrics code, which
+  // session replay can count as an extra page view, so keep this list to what your intercepts use.
+  refreshOn: ["formStatus", "formSubmit", "errorCount", "formBlocked", "searchResultsCount", "jobResultsCount", "refundLookupResult"]
 };
 
 /* --------------------------------------------------------------------------
@@ -132,6 +136,8 @@ try{(new g("https://zn2wugdyrudvhgffw-qdemo.siteintercept.qualtrics.com/SIE/?Q_Z
     // Ask for intercepts to be re-evaluated after an in-page state change.
     refresh: function (reason) {
       if (!cfg.refreshOnStateChange) return;
+      var allowed = cfg.refreshOn || [];
+      if (allowed.length && !allowed.some(function (k) { return String(reason || "").indexOf(k) !== -1; })) { log("dx.refresh not needed for", reason); return; }
       // Changes made before Qualtrics loads are already included in its first evaluation
       if (!qsiPresent()) { log("dx.refresh ignored (Qualtrics not loaded yet)", reason || ""); return; }
       pending = (pending ? pending + "," : "") + (reason || "change");
